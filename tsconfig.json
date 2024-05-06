@@ -11,6 +11,9 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
+      "ngx-dragable-dropable": [
+        "./dist/ngx-dragable-dropable"
+      ],
       "ngx-dynamic-timeline": [
         "./dist/ngx-dynamic-timeline"
       ],
