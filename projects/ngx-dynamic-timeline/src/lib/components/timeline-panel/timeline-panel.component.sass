@@ -1,0 +1,61 @@
+:host 
+  display: contents
+
+
+.panel-item 
+  border-bottom: #d0d0d0 1px solid
+  padding: 5px 10px
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  box-sizing: border-box
+  display: flex
+
+  &.can-collapse 
+    .collapse-icon 
+      display: inline-block !important
+    
+
+    .item-content 
+      cursor: pointer
+    
+  
+
+  .item-content 
+    display: inline-flex
+    align-items: center
+    box-sizing: border-box
+    max-width: 100%
+
+    .collapse-icon 
+      border: solid #5a5a5a
+      border-width: 0 2px 2px 0
+      display: none
+      padding: 2.5px
+      margin-right: 8px
+      transform: rotate(45deg)
+
+
+      &.collapsed 
+        transform: rotate(-45deg)
+      
+    
+
+    .item-name 
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+      width: auto
+    
+  
+
+
+[mwlResizeHandle] 
+  position: absolute
+  top: 0
+  right: 0
+  box-sizing: border-box
+  width: 5px
+  height: 100%
+  cursor: col-resize
+  z-index: 10000

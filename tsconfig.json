@@ -13,6 +13,9 @@
     "paths": {
       "ngx-dynamic-timeline": [
         "./dist/ngx-dynamic-timeline"
+      ],
+      "ngx-resizeable-element": [
+        "./dist/ngx-resizeable-element"
       ]
     },
     "esModuleInterop": true,

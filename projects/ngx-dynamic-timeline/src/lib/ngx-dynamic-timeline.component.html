@@ -1,0 +1,32 @@
+<div class="relative flex flex-row grow h-full overflow-auto">
+    <timeline-panel
+      (widthChanged)="panelWidth = $event"
+      [maxWidth]="400"
+      [minWidth]="50"
+      [resizable]="isPanelResizable"
+      [laneTemplate]="panelLaneTemplate"
+      [items]="itemsIterator.items"
+      [lanes]="lanes">
+    </timeline-panel>
+  <!-- [itemTemplate]="panelItemTemplate" -->
+  
+    <div class="relative min-h-full">
+      <!-- header -->
+      <timeline-scale-header [formatter]="scaleGenerator.formatter" [scale]="scale"></timeline-scale-header>
+  
+      <!-- seperator -->
+      <div *ngFor="let date of scale?.columns; index as i" class="absolute h-full w-px bg-gray-400" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
+  
+      <!-- date-marker -->
+      <timeline-date-marker *ngIf="showDateMarker" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
+  
+      <!-- lanes -->
+      <div class="flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
+        
+        <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
+          <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
+          <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
+        </ng-container>
+      </div>
+    </div>
+  </div>
