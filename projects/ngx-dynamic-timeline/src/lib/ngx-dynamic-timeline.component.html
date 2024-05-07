@@ -22,7 +22,6 @@
   
       <!-- lanes -->
       <div class="flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
-        
         <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
           <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
           <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
@@ -30,3 +29,27 @@
       </div>
     </div>
   </div>
+
+<ng-template #itemsIterationTemplate let-lane>
+  <ng-container *ngIf="lane.isExpanded">
+    <div class="mt-10">
+      <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
+        <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
+        <!-- <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container> -->
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #itemTemplate let-lane>
+  <div class="relative flex flex-row h-10">
+    <!-- single item -->
+    <div *ngFor="let item of lane.items">
+      <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)"></timeline-item>
+    </div>
+    <!-- error item -->
+    <!-- <div *ngFor="let error of lane.errorItems">
+      <timeline-erroritem [item]="error" [scale]="scale"></timeline-erroritem>
+    </div> -->
+  </div>
+</ng-template>

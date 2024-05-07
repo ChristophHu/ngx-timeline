@@ -1,1 +1,34 @@
-<p>timeline-item works!</p>
+<div class="absolute flex h-full px-1 items-center bg-blue-300 opacity-70 text-white rounded overflow-hidden cursor-pointer z-10"
+    *ngIf="isInScaleRange"
+    ghostElementPositioning="absolute"
+    mwlResizable
+    mwlDraggable
+    (click)="onClick()"
+    (dragEnd)="onItemDropped($event)"
+    (resizeEnd)="onItemResizeEnd($event)"
+    (resizeStart)="onItemResizeStart($event)"
+    [dragAxis]="{y: item.canSwitchLane ? item.canSwitchLane : false, x: item.canDrag}"
+    [enableGhostResize]="true"
+    [style.height.px]="height"
+    [style.left.px]="item._left"
+    [style.width.px]="item._width">
+
+    <!-- [dragAxis]="{y: false, x: item.canDrag}" -->
+
+    <span>{{item.name}}</span>
+
+  <!-- <ng-container [ngSwitch]="true">
+    inhalt long
+    <ng-container *ngSwitchCase="item._width <= 48" class="justify-center">
+      <span>{{item.name}}</span>
+    </ng-container>
+    inhalt short
+    <ng-container *ngSwitchCase="item?._width > 48" class="float-left">
+      <span>{{item.name}} +++</span>
+    </ng-container>
+  </ng-container> -->
+
+  <!-- resizer -->
+  <div *ngIf="item.canResizeLeft" [resizeEdges]="{ left: item.canResizeLeft }" class="resizeleft absolute h-full w-4 top-0 left-0 text-red-300 cursor-col-resize z-100" mwlResizeHandle></div>
+  <div *ngIf="item.canResizeRight" [resizeEdges]="{ right: item.canResizeRight }" class="resizeright absolute h-full w-4 top-0 right-0 cursor-col-resize z-100" mwlResizeHandle></div>
+</div>
