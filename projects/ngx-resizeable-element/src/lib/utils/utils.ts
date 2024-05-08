@@ -7,17 +7,17 @@ export function deepCloneNode(node: HTMLElement): HTMLElement {
     clone.removeAttribute('id');
 
     descendantsWithId.forEach((descendant) => {
-    descendant.removeAttribute('id');
+        descendant.removeAttribute('id');
     });
 
     if (nodeName === 'canvas') {
-    transferCanvasData(node as HTMLCanvasElement, clone as HTMLCanvasElement);
+        transferCanvasData(node as HTMLCanvasElement, clone as HTMLCanvasElement);
     } else if (
-    nodeName === 'input' ||
-    nodeName === 'select' ||
-    nodeName === 'textarea'
+        nodeName === 'input' ||
+        nodeName === 'select' ||
+        nodeName === 'textarea'
     ) {
-    transferInputData(node as HTMLInputElement, clone as HTMLInputElement);
+        transferInputData(node as HTMLInputElement, clone as HTMLInputElement);
     }
 
     transferData('canvas', node, clone, transferCanvasData);

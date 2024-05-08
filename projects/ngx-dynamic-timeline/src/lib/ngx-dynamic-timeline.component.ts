@@ -13,11 +13,12 @@ import { ErrorItem } from './models/erroritem.model';
 import { Observable, of } from 'rxjs';
 import { ITimelineZoom, TimelineViewMode } from './models/zoom';
 import { DragEndEvent } from 'angular-draggable-droppable';
-import { ResizeEvent } from 'angular-resizable-element';
+// import { ResizeEvent } from 'angular-resizable-element';
 import { StrategyManager } from './helpers/strategy-manager';
 import { NgxDynamicTimelineService } from './services/ngx-dynamic-timeline.service';
 import { TimelineItemComponent } from './components/timeline-item/timeline-item.component';
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator';
+import { ResizeEvent } from '../../../ngx-resizeable-element/src/public-api';
 
 interface ITimelineModuleConfig {
   strategyManager?: Provider;

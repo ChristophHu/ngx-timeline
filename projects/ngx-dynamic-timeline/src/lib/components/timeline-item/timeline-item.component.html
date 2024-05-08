@@ -1,7 +1,7 @@
 <div class="absolute flex h-full px-1 items-center bg-blue-300 opacity-70 text-white rounded overflow-hidden cursor-pointer z-10"
     *ngIf="isInScaleRange"
     ghostElementPositioning="absolute"
-    mwlResizable
+    nxtResizeable
     mwlDraggable
     (click)="onClick()"
     (dragEnd)="onItemDropped($event)"
@@ -29,6 +29,6 @@
   </ng-container> -->
 
   <!-- resizer -->
-  <div *ngIf="item.canResizeLeft" [resizeEdges]="{ left: item.canResizeLeft }" class="resizeleft absolute h-full w-4 top-0 left-0 text-red-300 cursor-col-resize z-100" mwlResizeHandle></div>
-  <div *ngIf="item.canResizeRight" [resizeEdges]="{ right: item.canResizeRight }" class="resizeright absolute h-full w-4 top-0 right-0 cursor-col-resize z-100" mwlResizeHandle></div>
+  <div *ngIf="item.canResizeLeft" [resizeEdges]="{ left: item.canResizeLeft }" class="resizeleft absolute h-full w-4 top-0 left-0 text-red-300 cursor-col-resize z-100" nxtResizeHandle></div>
+  <div *ngIf="item.canResizeRight" [resizeEdges]="{ right: item.canResizeRight }" class="resizeright absolute h-full w-4 top-0 right-0 cursor-col-resize z-100" nxtResizeHandle></div>
 </div>

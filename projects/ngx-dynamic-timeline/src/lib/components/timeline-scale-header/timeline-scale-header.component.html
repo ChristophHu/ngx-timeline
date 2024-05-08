@@ -7,9 +7,8 @@
     <div class="flex grow">
       <div *ngFor="let column of columns; trackBy: trackById">
         <div class="relative flex h-full w-12 justify-center items-center border-r border-gray-400">
-          {{formatter.formatColumn(column, 48, "en")}}
+          {{formatter?.formatColumn(column, 48, "en")}}
         </div>
       </div>
     </div>
 </div>
-  

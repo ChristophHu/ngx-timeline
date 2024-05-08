@@ -57,32 +57,6 @@ export class AppComponent {
       ],
       errorItems: []
     },
-    // {
-    //   id: '4',
-    //   name: 'Sub',
-    //   description: 'Description',
-    //   canDrag: false,
-    //   items: [
-    //     {
-    //       id: '5',
-    //       name: 'Item3',
-    //       startDate: new Date('2023-02-15T00:00:00'),
-    //       endDate: new Date('2023-02-16T00:00:00'),
-    //       canResizeLeft: true,
-    //       canResizeRight: true,
-    //       canDrag: true
-    //     },
-    //     {
-    //       id: '6',
-    //       name: 'Item4',
-    //       startDate: new Date('2023-02-17T00:00:00'),
-    //       endDate: new Date('2023-02-20T00:00:00'),
-    //       canResizeLeft: true,
-    //       canResizeRight: true,
-    //       canDrag: true
-    //     }
-    //   ]
-    // },
     {
       id: '7',
       name: 'Group 1',
@@ -130,67 +104,5 @@ export class AppComponent {
 
   constructor(private _NgxDynamicTimelineService: NgxDynamicTimelineService) {
     this._NgxDynamicTimelineService.setLanes(this.lanes)
-    // console.log(new Date())
   }
-
-  // items: ITimelineItem[] = [
-  //   {
-  //     startDate: new Date('2023-02-16T00:00:00'),
-  //     endDate: new Date(),
-  //     id: 1,
-  //     name: "First",
-  //     canResizeLeft: true,
-  //     canResizeRight: true,
-  //     canDrag: true
-  //   },
-  //   {
-  //     startDate: new Date('2023-02-15T00:00:00'),
-  //     endDate: new Date('2023-02-16T00:00:00'),
-  //     id: 2,
-  //     name: "Secons",
-  //     canResizeLeft: true,
-  //     canResizeRight: true,
-  //     canDrag: true
-  //   },
-  //   {
-  //     startDate: new Date('2022-07-09T00:00:00'),
-  //     endDate: new Date('2022-07-19T00:00:00'),
-  //     id: 3,
-  //     name: "Second",
-  //     canResizeLeft: true,
-  //     canResizeRight: true,
-  //     canDrag: true,
-  //     items: [
-  //       {
-  //         startDate: new Date('2022-07-09T00:00:00'),
-  //         endDate: new Date('2022-07-20T00:00:00'),
-  //         id: 4,
-  //         name: "2.1",
-  //         canResizeLeft: true,
-  //         canResizeRight: true,
-  //         canDrag: true,
-  //         items: [
-  //           {
-  //             startDate: new Date('2022-07-19T00:00:00'),
-  //             endDate: new Date('2022-07-20T00:00:00'),
-  //             id: 6,
-  //             name: "2.1.1",
-  //             canResizeLeft: true,
-  //             canResizeRight: true,
-  //             canDrag: true,
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         startDate: new Date('2022-07-09T00:00:00'),
-  //         endDate: new Date('2022-07-20T00:00:00'),
-  //         id: 5,
-  //         name: "2.2",
-  //         canResizeLeft: true,
-  //         canResizeRight: true,
-  //         canDrag: true,
-  //       }
-  //     ]
-  //   },
-  // ]
 }

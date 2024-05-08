@@ -2,16 +2,19 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ITimelineItem } from '../../models/item';
 import { IScale } from '../../models/scale';
-import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
+// import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { DragAndDropModule, DragEndEvent } from 'angular-draggable-droppable';
+import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../../../ngx-resizeable-element/src/public-api';
 
 @Component({
   selector: 'timeline-item',
   standalone: true,
   imports: [
     CommonModule,
-    ResizableModule,
-    DragAndDropModule
+    // ResizableModule,
+    NgxResizeableDirective,
+    DragAndDropModule,
+    ResizeHandleDirective
   ],
   templateUrl: './timeline-item.component.html',
   styleUrl: './timeline-item.component.sass',
@@ -58,11 +61,11 @@ export class TimelineItemComponent {
   //   return columnsOffsetFromStart * 48;
   // }
   
-  onItemResizeStart(event: ResizeEvent): void {
+  onItemResizeStart(event: any): void {
     this.isItemResizingStarted = true
   }
 
-  onItemResizeEnd(event: ResizeEvent): void {
+  onItemResizeEnd(event: any): void {
     this.itemResized.emit({event, item: this._item})
     setTimeout(() => this.isItemResizingStarted = false)
   }
