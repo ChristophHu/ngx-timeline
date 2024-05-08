@@ -1,3 +1,38 @@
 <div class="h-full">
   <ngx-dynamic-timeline [lanes]="lanes" [scaler]="scaler" [showDateMarker]="showDateMarker" [verticalDrag]="verticalDrag"></ngx-dynamic-timeline>
 </div>
+
+ngx-resizeable-element
+<div class="text-center">
+  <h1>Drag and pull the edges of the rectangle</h1>
+  <div
+    class="rectangle"
+    [ngStyle]="style"
+    nxtResizeable
+    [validateResize]="validate"
+    [enableGhostResize]="true"
+    [resizeSnapGrid]="{ left: 50, right: 50 }"
+    (resizeEnd)="onResizeEnd($event)"
+  >
+    <div
+      class="resize-handle-top"
+      nxtResizeHandle
+      [resizeEdges]="{ top: true }"
+    ></div>
+    <div
+      class="resize-handle-left"
+      nxtResizeHandle
+      [resizeEdges]="{ left: true }"
+    ></div>
+    <div
+      class="resize-handle-right"
+      nxtResizeHandle
+      [resizeEdges]="{ right: true }"
+    ></div>
+    <div
+      class="resize-handle-bottom"
+      nxtResizeHandle
+      [resizeEdges]="{ bottom: true }"
+    ></div>
+  </div>
+</div>

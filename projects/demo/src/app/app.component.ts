@@ -3,13 +3,18 @@ import { RouterOutlet } from '@angular/router'
 import { NgxDynamicTimelineComponent } from '../../../ngx-dynamic-timeline/src/public-api'
 import { NgxDynamicTimelineService } from '../../../ngx-dynamic-timeline/src/lib/services/ngx-dynamic-timeline.service'
 import { Lane } from '../../../ngx-dynamic-timeline/src/lib/models/lane.model'
+import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../ngx-resizeable-element/src/public-api'
+import { NgStyle } from '@angular/common'
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     NgxDynamicTimelineComponent,
-    RouterOutlet
+    NgxResizeableDirective,
+    ResizeHandleDirective,
+    RouterOutlet,
+    NgStyle
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
@@ -104,5 +109,30 @@ export class AppComponent {
 
   constructor(private _NgxDynamicTimelineService: NgxDynamicTimelineService) {
     this._NgxDynamicTimelineService.setLanes(this.lanes)
+  }
+
+  public style: object = {};
+
+  validate(event: ResizeEvent): boolean {
+    const MIN_DIMENSIONS_PX: number = 50;
+    if (
+      event.rectangle.width &&
+      event.rectangle.height &&
+      (event.rectangle.width < MIN_DIMENSIONS_PX ||
+        event.rectangle.height < MIN_DIMENSIONS_PX)
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  onResizeEnd(event: any): void {
+    this.style = {
+      position: 'fixed',
+      left: `${event.rectangle.left}px`,
+      top: `${event.rectangle.top}px`,
+      width: `${event.rectangle.width}px`,
+      height: `${event.rectangle.height}px`,
+    };
   }
 }
