@@ -70,7 +70,7 @@ export class TimelineItemComponent {
     setTimeout(() => this.isItemResizingStarted = false)
   }
 
-  onItemDropped(event: DragEndEvent): void {
+  onItemDropped(event: any): void {
     if (!this.isItemResizingStarted) {
       this.itemMoved.emit({event, item: this._item})
     }

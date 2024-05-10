@@ -5,6 +5,8 @@ import { NgxDynamicTimelineService } from '../../../ngx-dynamic-timeline/src/lib
 import { Lane } from '../../../ngx-dynamic-timeline/src/lib/models/lane.model'
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../ngx-resizeable-element/src/public-api'
 import { NgStyle } from '@angular/common'
+// import { DropEvent } from 'angular-draggable-droppable';
+// import { DroppableDirective, ValidateDrop } from 'projects/angular-draggable-droppable/src/lib/droppable.directive';
 
 @Component({
   selector: 'app-root',
@@ -135,4 +137,27 @@ export class AppComponent {
       height: `${event.rectangle.height}px`,
     };
   }
+
+  // droppedData: string = '';
+  // droppedData2: string = '';
+
+  // @ViewChild(DroppableDirective, { read: ElementRef, static: true })
+  // droppableElement: ElementRef;
+
+  // onDrop({ dropData }: DropEvent<string>): void {
+  //   this.droppedData = dropData;
+  //   setTimeout(() => {
+  //     this.droppedData = '';
+  //   }, 2000);
+  // }
+
+  // onDrop2({ dropData }: DropEvent<string>): void {
+  //   this.droppedData2 = dropData;
+  //   setTimeout(() => {
+  //     this.droppedData2 = '';
+  //   }, 2000);
+  // }
+
+  // validateDrop: ValidateDrop = ({ target }) =>
+  //   this.droppableElement.nativeElement.contains(target as Node);
 }
