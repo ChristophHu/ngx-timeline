@@ -1,10 +1,12 @@
-import { Component } from '@angular/core'
+import { Component, ElementRef, ViewChild } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 import { NgxDynamicTimelineComponent } from '../../../ngx-dynamic-timeline/src/public-api'
 import { NgxDynamicTimelineService } from '../../../ngx-dynamic-timeline/src/lib/services/ngx-dynamic-timeline.service'
 import { Lane } from '../../../ngx-dynamic-timeline/src/lib/models/lane.model'
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../ngx-resizeable-element/src/public-api'
 import { NgStyle } from '@angular/common'
+import { DropEvent } from '../../../ngx-dragable-dropable/src/lib/models/dropevent.model'
+import { ValidateDrop } from '../../../ngx-dragable-dropable/src/lib/models/validatedrop‎.model'
 // import { DropEvent } from 'angular-draggable-droppable';
 // import { DroppableDirective, ValidateDrop } from 'projects/angular-draggable-droppable/src/lib/droppable.directive';
 
@@ -138,26 +140,27 @@ export class AppComponent {
     };
   }
 
-  // droppedData: string = '';
-  // droppedData2: string = '';
+  // dropable
+  droppedData: string = '';
+  droppedData2: string = '';
 
-  // @ViewChild(DroppableDirective, { read: ElementRef, static: true })
-  // droppableElement: ElementRef;
+  @ViewChild(DroppableDirective, { read: ElementRef, static: true })
+  droppableElement: ElementRef;
 
-  // onDrop({ dropData }: DropEvent<string>): void {
-  //   this.droppedData = dropData;
-  //   setTimeout(() => {
-  //     this.droppedData = '';
-  //   }, 2000);
-  // }
+  onDrop({ dropData }: DropEvent<string>): void {
+    this.droppedData = dropData;
+    setTimeout(() => {
+      this.droppedData = '';
+    }, 2000);
+  }
 
-  // onDrop2({ dropData }: DropEvent<string>): void {
-  //   this.droppedData2 = dropData;
-  //   setTimeout(() => {
-  //     this.droppedData2 = '';
-  //   }, 2000);
-  // }
+  onDrop2({ dropData }: DropEvent<string>): void {
+    this.droppedData2 = dropData;
+    setTimeout(() => {
+      this.droppedData2 = '';
+    }, 2000);
+  }
 
-  // validateDrop: ValidateDrop = ({ target }) =>
-  //   this.droppableElement.nativeElement.contains(target as Node);
+  validateDrop: ValidateDrop = ({ target }) =>
+    this.droppableElement.nativeElement.contains(target as Node);
 }
