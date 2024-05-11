@@ -5,8 +5,9 @@ import { NgxDynamicTimelineService } from '../../../ngx-dynamic-timeline/src/lib
 import { Lane } from '../../../ngx-dynamic-timeline/src/lib/models/lane.model'
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../ngx-resizeable-element/src/public-api'
 import { NgStyle } from '@angular/common'
-import { DropEvent } from '../../../ngx-dragable-dropable/src/lib/models/dropevent.model'
 import { ValidateDrop } from '../../../ngx-dragable-dropable/src/lib/models/validatedrop‎.model'
+import { DropableDirective } from '../../../ngx-dragable-dropable/src/lib/dropable.directive'
+import { DragableDirective } from '../../../ngx-dragable-dropable/src/lib/dragable.directive'
 // import { DropEvent } from 'angular-draggable-droppable';
 // import { DroppableDirective, ValidateDrop } from 'projects/angular-draggable-droppable/src/lib/droppable.directive';
 
@@ -14,6 +15,8 @@ import { ValidateDrop } from '../../../ngx-dragable-dropable/src/lib/models/vali
   selector: 'app-root',
   standalone: true,
   imports: [
+    DragableDirective,
+    DropableDirective,
     NgxDynamicTimelineComponent,
     NgxResizeableDirective,
     ResizeHandleDirective,
@@ -144,17 +147,17 @@ export class AppComponent {
   droppedData: string = '';
   droppedData2: string = '';
 
-  @ViewChild(DroppableDirective, { read: ElementRef, static: true })
-  droppableElement: ElementRef;
+  @ViewChild(DropableDirective, { read: ElementRef, static: true })
+  dropableElement: ElementRef;
 
-  onDrop({ dropData }: DropEvent<string>): void {
+  onDrop({ dropData }: any): void {
     this.droppedData = dropData;
     setTimeout(() => {
       this.droppedData = '';
     }, 2000);
   }
 
-  onDrop2({ dropData }: DropEvent<string>): void {
+  onDrop2({ dropData }: any): void {
     this.droppedData2 = dropData;
     setTimeout(() => {
       this.droppedData2 = '';

@@ -1,5 +1,5 @@
-import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export interface CurrentDragData {
   clientX: number;
@@ -9,8 +9,8 @@ export interface CurrentDragData {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class DraggableHelper {
-  currentDrag = new Subject<Subject<CurrentDragData>>();
+export class DragableHelper {
+  currentDrag = new Subject<Subject<CurrentDragData>>()
 }
