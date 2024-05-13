@@ -1,7 +1,7 @@
 <div class="absolute flex h-full px-1 items-center bg-blue-300 opacity-70 text-white rounded overflow-hidden cursor-pointer z-10"
     *ngIf="isInScaleRange"
     ghostElementPositioning="absolute"
-    nxtResizeable
+    mwlResizable
     mwlDraggable
     (click)="onClick()"
     (dragEnd)="onItemDropped($event)"

@@ -40,6 +40,7 @@ import { DOCUMENT } from '@angular/common';
 import { CurrentDragData, DragableHelper } from './dragable-helper';
 import { DragableScrollContainerDirective } from './dragable-scroll-container.directive';
 import { addClass, removeClass } from './utils/utils';
+import { autoscroll } from './utils/autoscroll';
 
 export interface Coordinates {
   x: number;
@@ -96,6 +97,7 @@ export interface GhostElementCreatedEvent {
 
 @Directive({
   selector: '[mwlDraggable]',
+  standalone: true
 })
 export class DraggableDirective implements OnInit, OnChanges, OnDestroy {
   @Input() dropData: any;
@@ -103,12 +105,12 @@ export class DraggableDirective implements OnInit, OnChanges, OnDestroy {
   @Input() dragSnapGrid: SnapGrid = {};
   @Input() ghostDragEnabled: boolean = true;
   @Input() showOriginalElementWhileDragging: boolean = false;
-  @Input() validateDrag: ValidateDrag;
+  @Input() validateDrag!: ValidateDrag;
   @Input() dragCursor: string = '';
-  @Input() dragActiveClass: string;
-  @Input() ghostElementAppendTo: HTMLElement;
-  @Input() ghostElementTemplate: TemplateRef<any>;
-  @Input() touchStartLongPress: { delay: number; delta: number };
+  @Input() dragActiveClass: string = '';
+  @Input() ghostElementAppendTo!: HTMLElement;
+  @Input() ghostElementTemplate!: TemplateRef<any>;
+  @Input() touchStartLongPress: { delay: number; delta: number } = { delay: 300, delta: 1 };
 
   @Input() autoScroll: {
     margin:
@@ -329,19 +331,19 @@ export class DraggableDirective implements OnInit, OnChanges, OnDestroy {
             });
           }
 
-          this.scroller = autoScroll(
-            [
-              this.scrollContainer
-                ? this.scrollContainer.elementRef.nativeElement
-                : this.document.defaultView,
-            ],
-            {
-              ...this.autoScroll,
-              autoScroll() {
-                return true;
-              },
-            }
-          );
+          // this.scroller = autoscroll(
+          //   [
+          //     this.scrollContainer
+          //       ? this.scrollContainer.elementRef.nativeElement
+          //       : this.document.defaultView,
+          //   ],
+          //   {
+          //     ...this.autoScroll,
+          //     autoScroll() {
+          //       return true;
+          //     },
+          //   }
+          // );
           addClass(this.renderer, this.element, this.dragActiveClass);
 
           if (this.ghostDragEnabled) {

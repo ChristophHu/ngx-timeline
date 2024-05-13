@@ -7,7 +7,7 @@ import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../.
 import { NgStyle } from '@angular/common'
 import { ValidateDrop } from '../../../ngx-dragable-dropable/src/lib/models/validatedrop‎.model'
 import { DropableDirective } from '../../../ngx-dragable-dropable/src/lib/dropable.directive'
-import { DragableDirective } from '../../../ngx-dragable-dropable/src/lib/dragable.directive'
+import { DraggableDirective } from '../../../ngx-dragable-dropable/src/lib/dragable.directive'
 // import { DropEvent } from 'angular-draggable-droppable';
 // import { DroppableDirective, ValidateDrop } from 'projects/angular-draggable-droppable/src/lib/droppable.directive';
 
@@ -15,7 +15,7 @@ import { DragableDirective } from '../../../ngx-dragable-dropable/src/lib/dragab
   selector: 'app-root',
   standalone: true,
   imports: [
-    DragableDirective,
+    DraggableDirective,
     DropableDirective,
     NgxDynamicTimelineComponent,
     NgxResizeableDirective,
@@ -148,7 +148,7 @@ export class AppComponent {
   droppedData2: string = '';
 
   @ViewChild(DropableDirective, { read: ElementRef, static: true })
-  dropableElement: ElementRef;
+  dropableElement!: ElementRef
 
   onDrop({ dropData }: any): void {
     this.droppedData = dropData;
@@ -165,5 +165,5 @@ export class AppComponent {
   }
 
   validateDrop: ValidateDrop = ({ target }) =>
-    this.droppableElement.nativeElement.contains(target as Node);
+    this.dropableElement.nativeElement.contains(target as Node);
 }

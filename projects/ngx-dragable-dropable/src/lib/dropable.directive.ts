@@ -34,15 +34,15 @@ export type ValidateDrop = (params: ValidateDropParams) => boolean;
   standalone: true
 })
 export class DropableDirective implements OnInit, OnDestroy {
-  @Input() dragOverClass: string;
-  @Input() dragActiveClass: string;
-  @Input() validateDrop: ValidateDrop;
+  @Input() dragOverClass: string = '';
+  @Input() dragActiveClass: string = '';
+  @Input() validateDrop!: ValidateDrop;
   @Output() dragEnter = new EventEmitter<DropEvent>();
   @Output() dragLeave = new EventEmitter<DropEvent>();
   @Output() dragOver = new EventEmitter<DropEvent>();
   @Output() drop = new EventEmitter<DropEvent>(); // eslint-disable-line  @angular-eslint/no-output-native
 
-  currentDragSubscription: Subscription;
+  currentDragSubscription!: Subscription;
 
   constructor(
     private element: ElementRef<HTMLElement>,

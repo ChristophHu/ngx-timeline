@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { ITimelineItem } from '../../models/item';
 import { IScale } from '../../models/scale';
 // import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
-import { DragAndDropModule, DragEndEvent } from 'angular-draggable-droppable';
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../../../ngx-resizeable-element/src/public-api';
-
+import { DragEndEvent, DraggableDirective } from '../../../../../ngx-dragable-dropable/src/public-api';
+import { DropableDirective } from '../../../../../ngx-dragable-dropable/src/lib/dropable.directive';
 @Component({
   selector: 'timeline-item',
   standalone: true,
@@ -13,7 +13,8 @@ import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../.
     CommonModule,
     // ResizableModule,
     NgxResizeableDirective,
-    DragAndDropModule,
+    // DraggableDirective,
+    DropableDirective,
     ResizeHandleDirective
   ],
   templateUrl: './timeline-item.component.html',
