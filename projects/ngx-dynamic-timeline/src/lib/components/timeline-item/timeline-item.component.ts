@@ -13,7 +13,7 @@ import { DropableDirective } from '../../../../../ngx-dragable-dropable/src/lib/
     CommonModule,
     // ResizableModule,
     NgxResizeableDirective,
-    // DraggableDirective,
+    DraggableDirective,
     DropableDirective,
     ResizeHandleDirective
   ],

@@ -37,10 +37,11 @@ import {
 } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 // import autoScroll from '@mattlewis92/dom-autoscroller';
+// import autoScroll from 'dom-autoscroller';
 import { CurrentDragData, DragableHelper } from './dragable-helper';
 import { DragableScrollContainerDirective } from './dragable-scroll-container.directive';
 import { addClass, removeClass } from './utils/utils';
-import { autoscroll } from './utils/autoscroll';
+// import { autoscroll } from './utils/autoscroll.js';
 
 export interface Coordinates {
   x: number;
@@ -176,7 +177,7 @@ export class DraggableDirective implements OnInit, OnChanges, OnDestroy {
     touchmove?: () => void;
     touchend?: () => void;
     touchcancel?: () => void;
-  } = {};
+  } = {}
 
   private ghostElement!: HTMLElement | null;
   private destroy$ = new Subject<void>();
@@ -331,11 +332,10 @@ export class DraggableDirective implements OnInit, OnChanges, OnDestroy {
             });
           }
 
+          // console.log(autoscroll())
           // this.scroller = autoscroll(
           //   [
-          //     this.scrollContainer
-          //       ? this.scrollContainer.elementRef.nativeElement
-          //       : this.document.defaultView,
+          //     this.scrollContainer ? this.scrollContainer.elementRef.nativeElement : this.document.defaultView,
           //   ],
           //   {
           //     ...this.autoScroll,
