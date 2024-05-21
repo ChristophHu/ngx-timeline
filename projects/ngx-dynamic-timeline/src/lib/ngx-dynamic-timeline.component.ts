@@ -19,7 +19,8 @@ import { NgxDynamicTimelineService } from './services/ngx-dynamic-timeline.servi
 import { TimelineItemComponent } from './components/timeline-item/timeline-item.component';
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator';
 import { ResizeEvent } from '../../../ngx-resizeable-element/src/public-api';
-import { DragEndEvent } from '../../../ngx-dragable-dropable/src/public-api';
+import { DragEndEvent } from 'angular-draggable-droppable';
+// import { DragEndEvent } from '../../../ngx-dragable-dropable/src/public-api';
 
 interface ITimelineModuleConfig {
   strategyManager?: Provider;
@@ -52,7 +53,7 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
   @Input() showDateMarker: boolean = true
 
   // scale
-  @Input() scaler: { startDate: Date, endDate: Date } = { startDate: new Date('2023-01-01T00:00:00'), endDate: new Date('2023-09-30T00:00:00')}
+  @Input() scaler: { startDate: Date, endDate: Date } = { startDate: new Date('2024-05-01T00:00:00'), endDate: new Date('2024-08-30T00:00:00')}
   public scaleGenerator: IScaleGenerator
   public scale!: IScale
   public viewModeAdaptor!: IViewModeAdaptor

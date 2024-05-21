@@ -5,6 +5,7 @@ import { NgxDynamicTimelineService } from '../../../ngx-dynamic-timeline/src/lib
 import { Lane } from '../../../ngx-dynamic-timeline/src/lib/models/lane.model'
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../ngx-resizeable-element/src/public-api'
 import { NgStyle } from '@angular/common'
+// import { DragAndDropModule } from 'angular-draggable-droppable'
 import { ValidateDrop } from '../../../ngx-dragable-dropable/src/lib/models/validatedrop‎.model'
 import { DropableDirective } from '../../../ngx-dragable-dropable/src/lib/dropable.directive'
 import { DraggableDirective } from '../../../ngx-dragable-dropable/src/lib/dragable.directive'
@@ -15,6 +16,7 @@ import { DraggableDirective } from '../../../ngx-dragable-dropable/src/lib/draga
   selector: 'app-root',
   standalone: true,
   imports: [
+    // DragAndDropModule,
     DraggableDirective,
     DropableDirective,
     NgxDynamicTimelineComponent,
@@ -27,7 +29,7 @@ import { DraggableDirective } from '../../../ngx-dragable-dropable/src/lib/draga
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
-  scaler: { startDate: Date, endDate: Date } = { startDate: new Date('2023-02-01T00:00:00'), endDate: new Date('2023-08-30T00:00:00')}
+  scaler: { startDate: Date, endDate: Date } = { startDate: new Date('2024-05-01T00:00:00'), endDate: new Date('2024-08-30T00:00:00')}
   verticalDrag: boolean = true
   showDateMarker: boolean = true
   lanes: Lane[] = [
@@ -41,8 +43,8 @@ export class AppComponent {
         {
           id: '2',
           name: 'Item',
-          startDate: new Date('2023-02-25T00:00:00'),
-          endDate: new Date('2023-02-27T00:00:00'),// new Date(),
+          startDate: new Date('2024-05-25T00:00:00'),
+          endDate: new Date('2024-05-26T00:00:00'),// new Date(),
           canResizeLeft: true,
           canResizeRight: true,
           canDrag: true,
@@ -51,8 +53,8 @@ export class AppComponent {
         {
           id: '3',
           name: 'Item2',
-          startDate: new Date('2023-02-27T00:00:00'),
-          endDate: new Date('2023-02-28T00:00:00'),
+          startDate: new Date('2024-05-27T00:00:00'),
+          endDate: new Date('2024-05-28T00:00:00'),
           canResizeLeft: true,
           canResizeRight: true,
           canDrag: true
@@ -60,58 +62,58 @@ export class AppComponent {
         {
           id: '3x',
           name: 'Item3',
-          startDate: new Date('2023-02-28T00:00:00'),
-          endDate: new Date('2023-03-01T00:00:00'),
+          startDate: new Date('2024-05-28T00:00:00'),
+          endDate: new Date('2024-05-01T00:00:00'),
           canResizeLeft: true,
           canResizeRight: true,
           canDrag: true
         }
       ],
       errorItems: []
-    },
-    {
-      id: '7',
-      name: 'Group 1',
-      description: 'Description',
-      canDrag: true,
-      isExpanded: false,
-      sub: [
-        {
-          id: '8',
-          name: 'Sub 2',
-          description: 'Description',
-          canDrag: false,
-          items: [
-            {
-              id: '9',
-              name: 'Item5',
-              startDate: new Date('2023-02-16T00:00:00'),
-              endDate: new Date('2023-02-19T00:00:00'),
-              canResizeLeft: true,
-              canResizeRight: true,
-              canDrag: true
-            },
-          ]
-        },
-        {
-          id: '10',
-          name: 'Sub 3',
-          description: 'Description',
-          canDrag: false,
-          items: [
-            {
-              id: '11',
-              name: 'Item6',
-              startDate: new Date('2023-02-21T00:00:00'),
-              endDate: new Date('2023-02-22T00:00:00'),
-              canResizeLeft: true,
-              canResizeRight: true,
-              canDrag: true
-            },
-          ]
-        }
-      ]
     }
+    // {
+    //   id: '7',
+    //   name: 'Group 1',
+    //   description: 'Description',
+    //   canDrag: true,
+    //   isExpanded: false,
+    //   sub: [
+    //     {
+    //       id: '8',
+    //       name: 'Sub 2',
+    //       description: 'Description',
+    //       canDrag: false,
+    //       items: [
+    //         {
+    //           id: '9',
+    //           name: 'Item5',
+    //           startDate: new Date('2023-02-16T00:00:00'),
+    //           endDate: new Date('2023-02-19T00:00:00'),
+    //           canResizeLeft: true,
+    //           canResizeRight: true,
+    //           canDrag: true
+    //         },
+    //       ]
+    //     },
+    //     {
+    //       id: '10',
+    //       name: 'Sub 3',
+    //       description: 'Description',
+    //       canDrag: false,
+    //       items: [
+    //         {
+    //           id: '11',
+    //           name: 'Item6',
+    //           startDate: new Date('2023-02-21T00:00:00'),
+    //           endDate: new Date('2023-02-22T00:00:00'),
+    //           canResizeLeft: true,
+    //           canResizeRight: true,
+    //           canDrag: true
+    //         },
+    //       ]
+    //     }
+    //   ]
+    // }
   ]
 
   constructor(private _NgxDynamicTimelineService: NgxDynamicTimelineService) {

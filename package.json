@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
     "@mattlewis92/dom-autoscroller": "^2.4.2",
+    "angular-draggable-droppable": "^8.0.0",
     "dom-autoscroller": "^2.3.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

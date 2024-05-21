@@ -4,8 +4,11 @@ import { ITimelineItem } from '../../models/item';
 import { IScale } from '../../models/scale';
 // import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../../../ngx-resizeable-element/src/public-api';
-import { DragEndEvent, DraggableDirective } from '../../../../../ngx-dragable-dropable/src/public-api';
-import { DropableDirective } from '../../../../../ngx-dragable-dropable/src/lib/dropable.directive';
+import { DragAndDropModule, DragEndEvent } from 'angular-draggable-droppable';
+// import { DraggableDirective } from 'angular-draggable-droppable';
+// import { DropableDirective } from '../../../../../ngx-dragable-dropable/src/public-api';
+// import { DragEndEvent, DraggableDirective } from '../../../../../ngx-dragable-dropable/src/public-api';
+// import { DropableDirective } from '../../../../../ngx-dragable-dropable/src/lib/dropable.directive';
 @Component({
   selector: 'timeline-item',
   standalone: true,
@@ -13,8 +16,9 @@ import { DropableDirective } from '../../../../../ngx-dragable-dropable/src/lib/
     CommonModule,
     // ResizableModule,
     NgxResizeableDirective,
-    DraggableDirective,
-    DropableDirective,
+    DragAndDropModule,
+    // DraggableDirective,
+    // DropableDirective,
     ResizeHandleDirective
   ],
   templateUrl: './timeline-item.component.html',
