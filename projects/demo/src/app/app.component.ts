@@ -63,7 +63,26 @@ export class AppComponent {
           id: '3x',
           name: 'Item3',
           startDate: new Date('2024-05-28T00:00:00'),
-          endDate: new Date('2024-05-01T00:00:00'),
+          endDate: new Date('2024-05-30T00:00:00'),
+          canResizeLeft: true,
+          canResizeRight: true,
+          canDrag: true
+        }
+      ],
+      errorItems: []
+    },
+    {
+      id: '2',
+      name: 'Sub 2',
+      description: 'Description',
+      canDrag: true,
+      isExpanded: false,
+      items: [
+        {
+          id: '31',
+          name: 'Item3',
+          startDate: new Date('2024-05-28T00:00:00'),
+          endDate: new Date('2024-05-30T00:00:00'),
           canResizeLeft: true,
           canResizeRight: true,
           canDrag: true
