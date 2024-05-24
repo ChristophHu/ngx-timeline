@@ -37,7 +37,7 @@ export class AppComponent {
       id: '1',
       name: 'Sub 1',
       description: 'Description',
-      canDrag: false,
+      canDragLane: false,
       isExpanded: false,
       items: [
         {
@@ -45,9 +45,8 @@ export class AppComponent {
           name: 'Item',
           startDate: new Date('2024-05-25T00:00:00'),
           endDate: new Date('2024-05-26T00:00:00'),// new Date(),
-          canResizeLeft: true,
-          canResizeRight: true,
-          canDrag: true,
+          canResize: true,
+          canDragItem: true,
           canSwitchLane: true
         },
         {
@@ -55,18 +54,16 @@ export class AppComponent {
           name: 'Item2',
           startDate: new Date('2024-05-27T00:00:00'),
           endDate: new Date('2024-05-28T00:00:00'),
-          canResizeLeft: true,
-          canResizeRight: true,
-          canDrag: true
+          canResize: true,
+          canDragItem: true
         },
         {
           id: '3x',
           name: 'Item3',
           startDate: new Date('2024-05-28T00:00:00'),
           endDate: new Date('2024-05-30T00:00:00'),
-          canResizeLeft: true,
-          canResizeRight: true,
-          canDrag: true
+          canResize: true,
+          canDragItem: true
         }
       ],
       errorItems: []
@@ -75,7 +72,7 @@ export class AppComponent {
       id: '2',
       name: 'Sub 2',
       description: 'Description',
-      canDrag: true,
+      canDragLane: true,
       isExpanded: false,
       items: [
         {
@@ -83,9 +80,9 @@ export class AppComponent {
           name: 'Item3',
           startDate: new Date('2024-05-28T00:00:00'),
           endDate: new Date('2024-05-30T00:00:00'),
-          canResizeLeft: true,
-          canResizeRight: true,
-          canDrag: true
+          canResize: true,
+          canDragItem: true,
+          canSwitchLane: true
         }
       ],
       errorItems: []

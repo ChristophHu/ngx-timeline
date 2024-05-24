@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
 
+## ToDo
+- [] Items speichern (auch persistent),
+- [] Items abgleich untereinander,
+- [] Items unabhängig der Lane speichern und der Lane nur zuordnern nach ihrer Erstellung,
+- [] linken und rechten Nachbarn speichern zum verschieben,
+- [] ein Item unterbrechen durch ein neues (Context-Menu),
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

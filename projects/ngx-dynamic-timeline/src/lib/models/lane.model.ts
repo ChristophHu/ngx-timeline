@@ -5,7 +5,7 @@ export interface Lane {
     id: string
     name: string
     description: string
-    canDrag: boolean
+    canDragLane: boolean
     isExpanded?: boolean
     sub?: Lane[]
     items?: Item[]

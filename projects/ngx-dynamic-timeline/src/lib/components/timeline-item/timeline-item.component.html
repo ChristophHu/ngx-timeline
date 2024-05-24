@@ -7,7 +7,7 @@
     (dragEnd)="onItemDropped($event)"
     (resizeEnd)="onItemResizeEnd($event)"
     (resizeStart)="onItemResizeStart($event)"
-    [dragAxis]="{y: item.canSwitchLane ? item.canSwitchLane : false, x: item.canDrag}"
+    [dragAxis]="{y: item.canSwitchLane ? true : false, x: item.canDragItem}"
     [enableGhostResize]="true"
     [style.height.px]="height"
     [style.left.px]="item._left"
@@ -30,6 +30,6 @@
   </ng-container> -->
 
   <!-- resizer -->
-  <div *ngIf="item.canResizeLeft" [resizeEdges]="{ left: item.canResizeLeft }" class="resizeleft absolute h-full w-4 top-0 left-0 text-red-300 cursor-col-resize z-100" nxtResizeHandle></div>
-  <div *ngIf="item.canResizeRight" [resizeEdges]="{ right: item.canResizeRight }" class="resizeright absolute h-full w-4 top-0 right-0 cursor-col-resize z-100" nxtResizeHandle></div>
+  <div *ngIf="item.canResize" [resizeEdges]="{ left: item.canResize }" class="resizeleft absolute h-full w-4 top-0 left-0 text-red-300 cursor-col-resize z-100" nxtResizeHandle></div>
+  <div *ngIf="item.canResize" [resizeEdges]="{ right: item.canResize }" class="resizeright absolute h-full w-4 top-0 right-0 cursor-col-resize z-100" nxtResizeHandle></div>
 </div>

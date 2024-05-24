@@ -72,7 +72,10 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
   //   this.itemsIterator.setItems(items)
   //   this.redraw()
   // }
+  private _lanes: Lane[] = []
   @Input() set lanes(lanes: Lane[]) {
+    console.log('lanes', lanes)
+    this._lanes = lanes
     let items = this.setItems(lanes)
     this.itemsIterator.setItems(items)
     this.redraw()
@@ -225,16 +228,17 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
     movedItem.endDate = this.viewModeAdaptor.addColumnToDate(new Date(movedItem.endDate), transferColumns)
     console.log(movedItem)
     // check id of errors
-    // this.lanes.forEach((lane: Lane) => {
-    //   let found = lane.items.find((item: Item) => item.id == movedItem.id)
-    //   if (found) {
-    //     // lane.errorItems.find((item: ErrorItem) => item.itemIds != moved)
-    //   }
-    //     // if (lane.errorItems.filter('three') > -1)
-    //     // return true
+    console.log('this._lanes', this._lanes)
+    this._lanes.forEach((lane: Lane) => {
+      let found = lane.items?.find((item: Item) => item.id == movedItem.id)
+      if (found) {
+        // lane.errorItems.find((item: ErrorItem) => item.itemIds != moved)
+      }
+        // if (lane.errorItems.filter('three') > -1)
+        // return true
       
-    //   return false
-    // })
+      return false
+    })
     this._updateItemPosition(movedItem)
     this.itemMoved.emit(movedItem)
   }

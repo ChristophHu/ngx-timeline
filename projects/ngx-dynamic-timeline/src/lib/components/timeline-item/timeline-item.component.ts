@@ -77,6 +77,7 @@ export class TimelineItemComponent {
 
   onItemDropped(event: any): void {
     if (!this.isItemResizingStarted) {
+      console.log('item', this._item)
       this.itemMoved.emit({event, item: this._item})
     }
   }

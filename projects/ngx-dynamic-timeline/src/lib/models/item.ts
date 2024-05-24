@@ -5,9 +5,8 @@ export interface Item {
   name: string
   startDate: Date
   endDate: Date
-  canResizeLeft: boolean
-  canResizeRight: boolean
-  canDrag: boolean
+  canResize: boolean
+  canDragItem: boolean
   canSwitchLane?: boolean
   _left?: number
   _width?: number
@@ -32,17 +31,12 @@ export interface ITimelineItem<Meta = any> extends IIdObject {
   /**
    * Allows to disable / enable resize to left
    */
-  canResizeLeft: boolean;
-
-  /**
-   * Allows to disable / enable resize to right
-   */
-  canResizeRight: boolean;
+  canResize: boolean;
 
   /**
    * Disable / enable item dragging
    */
-  canDrag: boolean;
+  canDragItem: boolean;
 
   /**
    * Disable / enable item dragging
