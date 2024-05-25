@@ -1,4 +1,4 @@
-<div class="relative flex flex-row grow h-full bg-red-200 overflow-auto"> 
+<div class="relative flex flex-row grow h-full text-dark overflow-auto"> 
   <timeline-panel
     (widthChanged)="panelWidth = $event"
     [maxWidth]="400"
@@ -15,7 +15,7 @@
       <span>First Lane</span>
     </div> -->
 
-    <div class="relative min-h-full bg-yellow-200">
+    <div class="relative min-h-full">
       <!-- header -->
       <timeline-scale-header [formatter]="scaleGenerator.formatter" [scale]="scale"></timeline-scale-header>
   
