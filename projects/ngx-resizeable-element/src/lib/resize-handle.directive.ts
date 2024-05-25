@@ -2,8 +2,8 @@ import { Directive, Input, Renderer2, ElementRef, OnInit, OnDestroy, NgZone, Opt
 import { fromEvent, merge, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { NgxResizeableDirective } from './ngx-resizeable.directive'
-import { Edges } from './interfaces/edges.interface'
-import { IS_TOUCH_DEVICE } from './util/is-touch-device'
+import { Edges } from './models/edges.model';
+import { IS_TOUCH_DEVICE } from './utils/utils';
 
 @Directive({
   selector: '[nxtResizeHandle]',
@@ -11,7 +11,7 @@ import { IS_TOUCH_DEVICE } from './util/is-touch-device'
 })
 export class ResizeHandleDirective implements OnInit, OnDestroy {
   @Input() resizeEdges: Edges = {}
-  @Input() resizableContainer: ResizableDirective
+  @Input() resizableContainer!: NgxResizeableDirective
 
   private eventListeners: {
     touchmove?: () => void
@@ -79,8 +79,8 @@ export class ResizeHandleDirective implements OnInit, OnDestroy {
     this.resizable.mouseup.next({ clientX, clientY, edges: this.resizeEdges })
   }
 
-  private get resizable(): ResizableDirective {
-    return this.resizableDirective || this.resizableContainer
+  private get resizable(): NgxResizeableDirective {
+    return this._NgxResizeableDirective || this.resizableContainer
   }
 
   private onMousemove(event: MouseEvent | TouchEvent, clientX: number, clientY: number): void {

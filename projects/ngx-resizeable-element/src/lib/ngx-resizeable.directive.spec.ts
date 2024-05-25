@@ -62,7 +62,7 @@ describe('NgxResizeableDirective', () => {
     <div
       class="rectangle"
       [ngStyle]="style"
-      mwlResizable
+      nxtResizable
       [validateResize]="validate"
       [enableGhostResize]="enableGhostResize"
       [resizeSnapGrid]="resizeSnapGrid"
@@ -549,8 +549,8 @@ describe('resizable directive', () => {
       <div
         class="rectangle"
         [ngStyle]="style"
-        mwlResizable
-        #container='mwlResizable'
+        nxtResizable
+        #container='nxtResizable'
         (resizeStart)="resizeStart($event)"
       >
       </div>
@@ -895,7 +895,7 @@ describe('resizable directive', () => {
       <div
         class="rectangle"
         [ngStyle]="style"
-        mwlResizable
+        nxtResizable
         (resizeStart)="resizeStart($event)"
         (resizing)="resizing($event)"
         (resizeEnd)="resizeEnd($event)">
@@ -1270,7 +1270,7 @@ describe('resizable directive', () => {
          <div
           class="rectangle"
           [ngStyle]="style"
-          mwlResizable
+          nxtResizable
           [validateResize]="validate"
           [enableGhostResize]="enableGhostResize"
           [resizeSnapGrid]="resizeSnapGrid"
@@ -1392,7 +1392,7 @@ describe('resizable directive', () => {
       <div
         class="rectangle"
         [ngStyle]="style"
-        mwlResizable
+        nxtResizable
         (resizeStart)="resizeStart($event)"
         (resizing)="resizing($event)"
         (resizeEnd)="resizeEnd($event)">
@@ -1599,7 +1599,7 @@ describe('resizable directive', () => {
       <div
        class="rectangle"
         [ngStyle]="style"
-        mwlResizable
+        nxtResizable
         [enableGhostResize]="enableGhostResize"
       >
         <canvas id="canvas"></canvas>

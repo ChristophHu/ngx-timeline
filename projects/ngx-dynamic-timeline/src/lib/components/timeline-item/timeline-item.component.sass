@@ -1,0 +1,25 @@
+// nxtResizable {
+//   box-sizing: border-box; // required for the enableGhostResize option to work
+// }
+
+.resizeleft
+    &:hover
+        &::after
+            content: ''
+            display: block
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="gray" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>') no-repeat center
+            background-size: 24px 24px
+            margin-left: -6px
+            height: 100%
+            width: 24px
+
+.resizeright
+    &:hover
+        &::after
+            content: ''
+            display: block
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="gray" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>') no-repeat center
+            background-size: 24px 24px
+            margin-left: -6px
+            height: 100%
+            width: 24px

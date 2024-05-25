@@ -2,11 +2,10 @@ import { Directive, Renderer2, ElementRef, OnInit, Output, Input, EventEmitter, 
 import { isPlatformBrowser } from '@angular/common'
 import { Subject, Observable, Observer, merge } from 'rxjs'
 import { map, mergeMap, takeUntil, filter, pairwise, take, share, tap } from 'rxjs/operators';
-import { Edges } from './interfaces/edges.interface'
-import { BoundingRectangle } from './interfaces/bounding-rectangle.interface'
-import { ResizeEvent } from './interfaces/resize-event.interface'
-import { IS_TOUCH_DEVICE } from './util/is-touch-device'
-import { deepCloneNode } from './util/clone-node'
+import { BoundingRectangle } from './models/bounding-rectangle.model';
+import { Edges } from './models/edges.model';
+import { ResizeEvent } from './models/resize-event.model';
+import { IS_TOUCH_DEVICE, deepCloneNode } from './utils/utils';
 
 interface PointerEventCoordinate {
   clientX: number
@@ -135,12 +134,12 @@ const RESIZE_GHOST_ELEMENT_CLASS: string = 'resize-ghost-element'
 export const MOUSE_MOVE_THROTTLE_MS: number = 50
 
 @Directive({
-  selector: '[NgxResizeable]',
+  selector: '[nxtResizeable]',
   standalone: true
 })
 export class NgxResizeableDirective implements OnInit, OnDestroy {
 
-  @Input() validateResize: (resizeEvent: ResizeEvent) => boolean;
+  @Input() validateResize!: (resizeEvent: ResizeEvent) => boolean;
   @Input() enableGhostResize: boolean = false;
   @Input() resizeSnapGrid: Edges = {};
   @Input() resizeCursors: Partial<ResizeCursors> = DEFAULT_RESIZE_CURSORS;
