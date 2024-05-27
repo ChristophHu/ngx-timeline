@@ -11,6 +11,7 @@ module.exports = {
         secondary   : 'var(--secondary)',
         tertiary    : 'var(--tertiary)',
         accent      : 'var(--accent)',
+        accent_dark : 'var(--accent-darker)',
 
         // text
         dark        : 'var(--dark)',
