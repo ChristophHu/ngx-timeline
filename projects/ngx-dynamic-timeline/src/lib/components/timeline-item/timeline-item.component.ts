@@ -5,6 +5,8 @@ import { IScale } from '../../models/scale';
 // import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { DragAndDropModule, DragEndEvent } from 'angular-draggable-droppable';
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../../../ngx-resizeable-element/src/public-api';
+import { TimelineIconsComponent } from '../icons/timeline-icons.component';
+import { TruncatePipe } from '../../pipes/truncate/truncate.pipe';
 
 @Component({
   selector: 'timeline-item',
@@ -14,7 +16,9 @@ import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../.
     // ResizableModule,
     NgxResizeableDirective,
     DragAndDropModule,
-    ResizeHandleDirective
+    ResizeHandleDirective,
+    TimelineIconsComponent,
+    TruncatePipe
   ],
   templateUrl: './timeline-item.component.html',
   styleUrl: './timeline-item.component.sass',
@@ -45,6 +49,7 @@ export class TimelineItemComponent {
   // @Input() contentTemplate: TemplateRef<{ $implicit: ITimelineItem, locale: string }> | undefined
   @Output() itemResized = new EventEmitter<{ event: ResizeEvent, item: ITimelineItem }>()
   @Output() itemMoved = new EventEmitter<{ event: DragEndEvent, item: ITimelineItem }>()
+  @Output() itemClicked = new EventEmitter<ITimelineItem>()
 
   get item(): ITimelineItem {
     return this._item

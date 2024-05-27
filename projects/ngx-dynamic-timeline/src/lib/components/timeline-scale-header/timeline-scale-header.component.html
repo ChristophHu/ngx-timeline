@@ -1,14 +1,29 @@
-<div class="flex flex-col h-16">
-    <div class="flex grow" *ngIf="groups.length">
-      <div *ngFor="let group of groups; trackBy: trackById; index as i" [style.width.px]="group.width" class="group relative flex h-full justify-center items-center border-b border-r border-gray-400">
-        <div>{{group.name}}</div>
-      </div>
+<div class="flex flex-col h-full overflow-hidden">
+  <div class="relative flex grow" *ngIf="groups.length">
+    <div *ngFor="let group of groups; trackBy: trackById; index as i" [style.width.px]="group.width" class="group relative flex h-full justify-center items-start border-t border-r border-borderline">
+      <div>{{group.name}}</div>
     </div>
-    <div class="flex grow">
+    <div class="absolute flex h-auto top-8 bottom-0">
       <div *ngFor="let column of columns; trackBy: trackById">
-        <div class="relative flex h-full w-12 justify-center items-center border-r border-static_gray">
-          {{formatter?.formatColumn(column, 48, "en")}}
+        <div class="relative flex h-full w-[48px] justify-center items-start" [ngClass]="{'bg-primary brightness-[130%]': column.date.getDay() == 6 || column.date.getDay() == 0 }">
+          {{ formatter?.formatColumn(column, 48, "en") }}
         </div>
+        <div class="absolute top-6 h-2 w-12 border-r border-b border-borderline"></div>
       </div>
     </div>
+  </div>
+  <!-- <div class="relative flex grow">
+    <div *ngFor="let column of columns; trackBy: trackById">
+      <div class="relative flex h-full w-12 justify-center items-center" [ngClass]="{'bg-primary brightness-[130%]': column.date.getDay() == 6 || column.date.getDay() == 0 }">
+        {{ formatter?.formatColumn(column, 48, "en") }}
+      </div>
+
+      <div class="absolute h-2 w-12 -mt-2 border-r border-b border-borderline"></div>
+    </div>
+
+    <div class="absolute flex h-full">
+      <div *ngFor="let group of groups; trackBy: trackById; index as i" [style.width.px]="group.width" class="group relative flex h-full border-r border-borderline">
+      </div>
+    </div>
+  </div> -->
 </div>

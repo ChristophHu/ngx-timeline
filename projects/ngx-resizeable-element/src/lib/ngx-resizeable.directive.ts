@@ -128,7 +128,7 @@ function getEdgesDiff({ edges, initialRectangle, newRectangle }: { edges: Edges;
   return edgesDiff
 }
 
-const RESIZE_ACTIVE_CLASS: string = 'resize-active'
+const RESIZE_ACTIVE_CLASS: string = 'resize-active' // resize-active
 const RESIZE_GHOST_ELEMENT_CLASS: string = 'resize-ghost-element'
 
 export const MOUSE_MOVE_THROTTLE_MS: number = 50
@@ -158,10 +158,7 @@ export class NgxResizeableDirective implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public elm: ElementRef, private zone: NgZone) {
-    this.pointerEventListeners = PointerEventListeners.getInstance(
-      renderer,
-      zone
-    )
+    this.pointerEventListeners = PointerEventListeners.getInstance(renderer, zone)
   }
 
   /**

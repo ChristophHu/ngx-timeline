@@ -6,7 +6,7 @@
   
     <ng-template #lanesIterationTemplate let-lane='lane' let-index='index' let-depth='depth'>
     
-        <div class='inline-flex h-10 w-full px-3 items-center'>
+        <div class='inline-flex h-12 w-full px-3 items-center'>
             <ng-container *ngIf="!!lane.sub">
                 <div [style.marginLeft.px]='depth * 15' (click)='toggleExpand(lane); lane.isExpanded = !lane.isExpanded' class='item-content'>
                     <div class='collapse-icon' [class.collapsed]='!lane.expanded'></div>

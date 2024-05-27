@@ -70,6 +70,26 @@ export class AppComponent {
       ],
       errorItems: []
     },
+    {
+      id: '1',
+      name: 'Sub 1',
+      description: 'Description',
+      canDrag: false,
+      isExpanded: false,
+      items: [
+        {
+          id: '2',
+          name: 'Item',
+          startDate: new Date('2024-05-25T00:00:00'),
+          endDate: new Date('2024-05-27T00:00:00'),// new Date(),
+          canResizeLeft: true,
+          canResizeRight: true,
+          canDrag: true,
+          canSwitchLane: true
+        }
+      ],
+      errorItems: []
+    }
     // {
     //   id: '7',
     //   name: 'Group 1',

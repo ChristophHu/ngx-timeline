@@ -20,18 +20,25 @@
       <timeline-scale-header [formatter]="scaleGenerator.formatter" [scale]="scale"></timeline-scale-header>
   
       <!-- seperator -->
-      <div *ngFor="let date of scale?.columns; index as i" class="absolute h-full w-px bg-gray-400" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
-  
-      <!-- date-marker -->
-      <timeline-date-marker *ngIf="showDateMarker" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
+      <div *ngFor="let date of scale?.columns; index as i" class="absolute top-16 h-full w-px bg-borderline" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
 
-      <!-- items -->
-      <div class="flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
-        <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
-          <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
-          <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
-        </ng-container>
+      <!-- <div class="relative top-16"> -->
+        <!-- date-marker -->
+        <timeline-date-marker *ngIf="showDateMarker" class="absolute top-16 h-16" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
+
+      <!-- </div> -->
+
+      <div class="absolute top-16">
+
+        <!-- items -->
+        <div class="flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
+          <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
+            <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
+            <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
+          </ng-container>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -47,7 +54,7 @@
 </ng-template>
 
 <ng-template #itemTemplate let-lane>
-  <div class="relative flex flex-row h-10">
+  <div class="relative flex flex-row h-12">
     <!-- single item -->
     <div *ngFor="let item of lane.items">
       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)"></timeline-item>

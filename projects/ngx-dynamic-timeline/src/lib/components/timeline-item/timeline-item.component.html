@@ -1,4 +1,4 @@
-<div class="absolute flex h-full px-1 items-center bg-blue-300 opacity-70 text-white rounded overflow-hidden cursor-pointer z-10"
+<div class="group absolute flex my-1 h-14 items-center text-white overflow-hidden cursor-pointer z-10"
     *ngIf="isInScaleRange"
     ghostElementPositioning="absolute"
     nxtResizeable
@@ -15,20 +15,27 @@
 
     <!-- [dragAxis]="{y: false, x: item.canDrag}" -->
 
-    <span>{{item.name}}</span>
-
-  <!-- <ng-container [ngSwitch]="true">
-    inhalt long
-    <ng-container *ngSwitchCase="item._width <= 48" class="justify-center">
-      <span>{{item.name}}</span>
-    </ng-container>
-    inhalt short
-    <ng-container *ngSwitchCase="item?._width > 48" class="float-left">
-      <span>{{item.name}} +++</span>
-    </ng-container>
-  </ng-container> -->
-
-  <!-- resizer -->
-  <div *ngIf="item.canResizeLeft" [resizeEdges]="{ left: item.canResizeLeft }" class="resizeleft absolute h-full w-4 top-0 left-0 text-red-300 cursor-col-resize z-100" nxtResizeHandle></div>
-  <div *ngIf="item.canResizeRight" [resizeEdges]="{ right: item.canResizeRight }" class="resizeright absolute h-full w-4 top-0 right-0 cursor-col-resize z-100" nxtResizeHandle></div>
+    <div class="absolute h-full left-0 right-0 m-1 bg-secondary rounded">
+      <div *ngIf="item.canResizeLeft" nxtResizeHandle [resizeEdges]="{ left: item.canResizeLeft }" class="absolute grid left-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center bg-accent overflow-hidden">
+        <div class="h-6 w-6 -ml-2 stroke-2">
+          <timeline-icons name="minus-vertical"></timeline-icons>
+        </div>
+      </div>
+      <div class="h-full w-full border border-secondary group-hover:border-accent">
+        <ng-container [ngSwitch]="true">
+          <ng-container *ngIf="item._width && item._width <= 48" class="justify-center">
+            <span class="mx-3">{{ item.name | truncate: 2 }}</span>
+          </ng-container>
+          <ng-container *ngIf="item._width && item._width > 48" class="float-left">
+            <span class="mx-3">{{ item.name | truncate: 20 }}</span>
+          </ng-container>
+        </ng-container>
+      </div>
+      
+      <div *ngIf="item.canResizeRight" nxtResizeHandle [resizeEdges]="{ right: item.canResizeRight }" class="absolute grid left-10 h-full w-2 group-hover:block group-focus:block hidden place-content-center bg-accent overflow-hidden">
+        <div class="h-6 w-6 -ml-2 stroke-2">
+          <timeline-icons name="minus-vertical"></timeline-icons>
+        </div>
+      </div>
+    </div>
 </div>

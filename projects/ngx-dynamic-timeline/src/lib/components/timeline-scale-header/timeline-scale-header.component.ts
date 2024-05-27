@@ -30,6 +30,9 @@ export class TimelineScaleHeaderComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this._generateGroups()
+    console.log(this.groups)
+    console.log(this.columns)
+    // console.log(this.formatter?.formatColumn('1', 48, "en"))
   }
 
   private _groupColumnGroups(): { [groupId: string]: IScaleGroup[] } {
