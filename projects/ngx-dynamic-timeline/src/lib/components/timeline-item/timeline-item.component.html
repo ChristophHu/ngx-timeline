@@ -16,24 +16,34 @@
   <!-- [dragAxis]="{y: false, x: item.canDrag}" -->
 
   <div class="absolute h-full left-0 right-0 m-1 bg-secondary rounded-lg">
-    <div *ngIf="item.canResizeLeft" nxtResizeHandle [resizeEdges]="{ left: item.canResizeLeft }" class="absolute grid left-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center bg-accent_dark rounded-l-lg overflow-hidden">
+    <div *ngIf="item.canResizeLeft" nxtResizeHandle [resizeEdges]="{ left: item.canResizeLeft }" class="absolute grid left-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center text-static_gray cursor-col-resize overflow-hidden">
       <div class="h-6 w-6 -ml-2 stroke-2">
-        <!-- <timeline-icons name="minus-vertical"></timeline-icons> -->
+        <timeline-icon name="minus-vertical"></timeline-icon>
       </div>
     </div>
-    <div class="h-full w-full border border-secondary group-hover:border-accent_dark rounded-lg" [ngClass]="{'grid place-content-center': item._width && item._width <= 48 }">
-      <ng-container [ngSwitch]="true">
-        <ng-container *ngIf="item._width && item._width <= 48" class="grid place-content-center">
-          <span>X</span>
+    <div class="h-full w-full group-hover:bg-accent_dark rounded-lg">
+      <div class="absolute top-[2px] bottom-[2px] right-2 left-2 bg-secondary rounded" [ngClass]="{'grid place-content-center': item._width && item._width <= 48 }">
+        <ng-container [ngSwitch]="true">
+          <ng-container *ngIf="item._width && item._width <= 48">
+            <span>X</span>
+          </ng-container>
+          <!-- <ng-container *ngIf="item._width && item._width > 48 && item._width <= 96">
+            <span>X</span>
+            <p class="-mt-1 mx-2 text-x text-static_gray">{{ checkDateRange(item) }}</p>
+          </ng-container> -->
+          <ng-container *ngIf="item._width && item._width > 48">
+            <div class="flex flex-col">
+              <span class="mx-2">{{ item.name }}</span>
+              <p class="-mt-1 mx-2 text-x text-static_gray">{{ getDateRange(item) }}</p>
+              <!-- <p class="-mt-1 mx-2 text-x text-static_gray">{{ item.startDate | date: 'd. MMM' }} - {{ item.endDate | date: 'd. MMM' }}</p> -->
+            </div>
+          </ng-container>
         </ng-container>
-        <ng-container *ngIf="item._width && item._width > 48" class="float-left">
-          <span class="mx-3">{{ item.name }}</span>
-        </ng-container>
-      </ng-container>
+      </div>
     </div>
-    <div *ngIf="item.canResizeRight" nxtResizeHandle [resizeEdges]="{ right: item.canResizeRight }" class="absolute grid top-0 right-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center bg-accent_dark rounded-r-lg overflow-hidden">
+    <div *ngIf="item.canResizeRight" nxtResizeHandle [resizeEdges]="{ right: item.canResizeRight }" class="absolute grid top-0 right-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center text-static_gray cursor-col-resize overflow-hidden">
       <div class="h-6 w-6 -ml-2 stroke-2">
-        <!-- <timeline-icons name="minus-vertical"></timeline-icons> -->
+        <timeline-icon name="minus-vertical"></timeline-icon>
       </div>
     </div>
   </div>

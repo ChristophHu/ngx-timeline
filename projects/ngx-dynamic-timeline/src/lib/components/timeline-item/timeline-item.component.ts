@@ -5,6 +5,8 @@ import { IScale } from '../../models/scale';
 // import { ResizableModule, ResizeEvent } from 'angular-resizable-element';
 import { DragAndDropModule, DragEndEvent } from 'angular-draggable-droppable';
 import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../../../../../ngx-resizeable-element/src/public-api';
+import { TimelineIconComponent } from '../timeline-icon/timeline-icon.component';
+import { dateBefore, dateDiffByProperty } from '../../helpers/utils';
 
 @Component({
   selector: 'timeline-item',
@@ -14,7 +16,8 @@ import { NgxResizeableDirective, ResizeEvent, ResizeHandleDirective } from '../.
     // ResizableModule,
     NgxResizeableDirective,
     DragAndDropModule,
-    ResizeHandleDirective
+    ResizeHandleDirective,
+    TimelineIconComponent
   ],
   templateUrl: './timeline-item.component.html',
   styleUrl: './timeline-item.component.sass',
@@ -87,5 +90,17 @@ export class TimelineItemComponent {
 
     this.isInScaleRange = this._scale.startDate.getTime() <= this._item.startDate.getTime()
       && this._scale.endDate.getTime() >= this._item.endDate.getTime()
+  }
+
+  getDateRange(item: ITimelineItem): string {
+    // return item.endDate.toLocaleDateString()
+    // let startDate = item.startDate
+    // let endDate = item.endDate
+    // {{ item.startDate | date: 'd. MMM' }} - {{ item.endDate | date: 'd. MMM' }}
+    // if (dateDiffByProperty(item.startDate, item.endDate, 'month')) {
+    //   return startDate.getDate().toString() + '. ' + ' - ' + dateBefore(endDate).getDate().toString() + '. ' + dateBefore(endDate).toLocaleString('de', { month: 'short' })
+    // }
+    // return dateBefore(item.endDate).toString()
+    return item.startDate.toLocaleDateString() + ' - ' + item.endDate.toLocaleDateString()
   }
 }

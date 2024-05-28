@@ -35,6 +35,9 @@ module.exports = {
         '128': '32rem',
         '192': '48rem',
       },
+      fontSize: {
+        x: '0.6rem'
+      }
     },
   },
   plugins: [],
