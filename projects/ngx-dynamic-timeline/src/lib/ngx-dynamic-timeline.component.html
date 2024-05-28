@@ -22,33 +22,24 @@
       <!-- seperator -->
       <div *ngFor="let date of scale?.columns; index as i" class="absolute top-16 h-full w-px bg-borderline" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
 
-      <!-- <div class="relative top-16"> -->
-        <!-- date-marker -->
-        <timeline-date-marker *ngIf="showDateMarker" class="absolute top-16 h-16" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
+      <!-- date marker -->
+      <timeline-date-marker *ngIf="showDateMarker" class="absolute top-0 h-full" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
 
-      <!-- </div> -->
-
-      <div class="absolute top-16">
-
-        <!-- items -->
-        <div class="flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
-          <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
-            <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
-            <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
-          </ng-container>
-        </div>
+      <!-- items -->
+      <div class="absolute top-16 mt-2 flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
+        <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
+          <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
+          <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
+        </ng-container>
       </div>
-
     </div>
   </div>
 
 <ng-template #itemsIterationTemplate let-lane>
   <ng-container *ngIf="lane.isExpanded">
-    <div class="mt-10">
-      <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
-        <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
-        <!-- <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container> -->
-      </div>
+    <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
+      <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
+      <!-- <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container> -->
     </div>
   </ng-container>
 </ng-template>

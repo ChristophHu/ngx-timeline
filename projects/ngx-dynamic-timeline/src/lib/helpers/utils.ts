@@ -134,6 +134,9 @@ export function testFunction(cb: any) {
 }
 
 // time
+export function dateDiff(date1: Date, date2: Date): number {
+    return (date1.getTime() - date2.getTime()) / 1000 / 60 / 60 / 24
+}
 export function diffToNow(time: number): number {
     const now: number = ~~(new Date().getTime() / 1000)
     const diff: number = time - now
@@ -225,8 +228,11 @@ function week(): any {
     d.setHours(0,0,0,0)
     return d
 }
-function yesterday(): number {
-    return new Date().setHours(-24,0,0,0)
+function yesterday(date: Date = new Date): number {
+    let d = new Date(date)
+    d.setDate(d.getDate() - 1)
+    return d.setHours(0,0,0,0)
+    // return new Date().setHours(-24,0,0,0)
 }
 function today(): number {
     return new Date().setHours(0,0,0,0)
@@ -238,12 +244,9 @@ function tomorrow(): number {
     return new Date().setHours(24,0,0,0)
 }
 
-export function dateBefore(date: Date = new Date()): number {
-    console.log(date, '->', new Date(date.setDate(date.getDate()+1)))
-    return date.setDate(date.getDate()+1)
-    // return new Date(date.setHours(-24,0,0,0))
-    // console.log(date, '1 before: ', new Date(date.setDate(date.getDate() -1)))
-    // return new Date(date.setDate(date.getDate() - 2))
+export function dateBefore(date: Date = new Date()): Date {
+    let d = new Date(date)
+    return new Date(d.setDate(d.getDate() - 1))
 }
 export function dateDiffByProperty(date1: Date, date2: Date, prop: string): boolean {
     switch (prop) {
@@ -263,6 +266,26 @@ export function dateDiffByProperty(date1: Date, date2: Date, prop: string): bool
             return false
     }
 }
+
+export function getDateRangeString(start: Date, end: Date): string {
+    // let shownEnd = dateBefore(end)
+    let shownEnd = new Date(yesterday(end))
+
+    switch (true) {
+      case dateDiffByProperty(start, shownEnd, 'day'):
+        // same day
+        return start.toLocaleDateString()
+        break
+      case dateDiffByProperty(start, shownEnd, 'month'):
+        // same month
+        return start.getDate().toString() + '. ' + ' - ' + shownEnd.getDate().toString() + '. ' + shownEnd.toLocaleString('de', { month: 'long' })
+        break
+      default:
+        // different month
+        return start.getDate().toString() + '. ' + start.toLocaleString('de', { month: 'long' }) + ' - ' + shownEnd.getDate().toString() + '. ' + shownEnd.toLocaleString('de', { month: 'long' })
+        break
+    }
+  }
 
 // hash
 // npm i sha.js
