@@ -11,7 +11,8 @@
   [enableGhostResize]="true"
   [style.height.px]="height"
   [style.left.px]="item._left"
-  [style.width.px]="item._width">
+  [style.width.px]="item._width"
+  (contextmenu)="displayContextMenu($event); false">
 
   <!-- [dragAxis]="{y: false, x: item.canDrag}" -->
 
@@ -50,3 +51,4 @@
   </div>
 </div>
 
+<context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu" [ngStyle]="getRightClickMenuStyle()" (onContextMenuItemClick)="handleMenuItemClick($event)"></context-menu>

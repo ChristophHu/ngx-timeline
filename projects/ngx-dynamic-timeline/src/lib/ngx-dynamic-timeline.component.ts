@@ -19,6 +19,7 @@ import { NgxDynamicTimelineService } from './services/ngx-dynamic-timeline.servi
 import { TimelineItemComponent } from './components/timeline-item/timeline-item.component';
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator';
 import { ResizeEvent } from '../../../ngx-resizeable-element/src/public-api';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 interface ITimelineModuleConfig {
   strategyManager?: Provider;
@@ -42,7 +43,21 @@ export interface IIdObject {
   ],
   templateUrl: './ngx-dynamic-timeline.component.html',
   styleUrls: ['./ngx-dynamic-timeline.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('slideInBottom', [
+      state('void', style({ transform: 'translate3d(0, 100%, 0)'})),
+      state('*', style({ transform: 'translate3d(0, 0, 0)' })),
+      transition('void => false', []),
+      transition('void => *', animate('200ms 100ms cubic-bezier(0.0, 0.0, 0.2, 1)'))
+    ]),
+    trigger('slideOutBottom', [
+      state('*', style({ transform: 'translate3d(0, 0, 0)' })),
+      state('void', style({ transform: 'translate3d(0, 100%, 0)'})),
+      transition('false => void', []),
+      transition('* => void', animate('200ms cubic-bezier(0.0, 0.0, 0.2, 1)'))
+    ])
+  ]
 })
 export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
   // datemarker

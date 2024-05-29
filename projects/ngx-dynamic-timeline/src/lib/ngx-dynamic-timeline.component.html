@@ -38,12 +38,12 @@
 <ng-template #itemsIterationTemplate let-lane>
   <ng-container *ngIf="!lane.isExpanded">
     <div class="relative h-10 mb-2">
-      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-secondary"></div>
+      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-gray-600"></div>
     </div>
   </ng-container>
   <ng-container *ngIf="lane.isExpanded">
     <div class="relative h-10 mb-2">
-      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-secondary"></div>
+      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-gray-700"></div>
     </div>
     <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
       <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
