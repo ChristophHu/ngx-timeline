@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   content: [
     './projects/**/*.{html,ts,css,scss,sass,less,styl}'
@@ -40,6 +43,34 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'bg-gradient_slim': (angle) => ({
+            'background': `repeating-linear-gradient(${angle}, transparent 0 4px, var(--tw-gradient-to) 4px 5px)`,
+          }),
+        },
+        {
+          // values from config and defaults you wish to use most
+          values: Object.assign(
+            theme('bgGradientDeg', {}), // name of config key. Must be unique
+            {
+              10: '10deg', // bg-gradient-10
+              15: '15deg',
+              20: '20deg',
+              25: '25deg',
+              30: '30deg',
+              45: '45deg',
+              60: '60deg',
+              90: '90deg',
+              120: '120deg',
+              135: '135deg'
+            }
+          )
+        }
+       )
+    })
+  ],
 }
 

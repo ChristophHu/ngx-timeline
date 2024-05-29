@@ -28,7 +28,7 @@ import { DragAndDropModule, DropEvent, DroppableDirective, ValidateDrop } from '
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
-  scaler: { startDate: Date, endDate: Date } = { startDate: new Date('2024-05-01T00:00:00'), endDate: new Date('2024-08-30T00:00:00')}
+  scaler: { startDate: Date, endDate: Date } = { startDate: new Date('2024-05-01T00:00:00'), endDate: new Date('2024-06-03T00:00:00')}
   verticalDrag: boolean = true
   showDateMarker: boolean = true
   lanes: Lane[] = [
@@ -89,50 +89,70 @@ export class AppComponent {
         }
       ],
       errorItems: []
-    }
-    // {
-    //   id: '7',
-    //   name: 'Group 1',
-    //   description: 'Description',
-    //   canDrag: true,
-    //   isExpanded: false,
-    //   sub: [
-    //     {
-    //       id: '8',
-    //       name: 'Sub 2',
-    //       description: 'Description',
-    //       canDrag: false,
-    //       items: [
-    //         {
-    //           id: '9',
-    //           name: 'Item5',
-    //           startDate: new Date('2023-02-16T00:00:00'),
-    //           endDate: new Date('2023-02-19T00:00:00'),
-    //           canResizeLeft: true,
-    //           canResizeRight: true,
-    //           canDrag: true
-    //         },
-    //       ]
-    //     },
-    //     {
-    //       id: '10',
-    //       name: 'Sub 3',
-    //       description: 'Description',
-    //       canDrag: false,
-    //       items: [
-    //         {
-    //           id: '11',
-    //           name: 'Item6',
-    //           startDate: new Date('2023-02-21T00:00:00'),
-    //           endDate: new Date('2023-02-22T00:00:00'),
-    //           canResizeLeft: true,
-    //           canResizeRight: true,
-    //           canDrag: true
-    //         },
-    //       ]
-    //     }
-    //   ]
-    // }
+    },
+    {
+      id: '7',
+      name: 'Group 1',
+      description: 'Description',
+      canDrag: true,
+      isExpanded: true,
+      sub: [
+        {
+          id: '8',
+          name: 'Group 1, Sub 1',
+          description: 'Description',
+          canDrag: false,
+          items: [
+            {
+              id: '9',
+              name: 'Item5',
+              startDate: new Date('2024-05-01T00:00:00'),
+              endDate: new Date('2024-05-10T00:00:00'),
+              canResizeLeft: true,
+              canResizeRight: true,
+              canDrag: true
+            },
+          ]
+        },
+        {
+          id: '10',
+          name: 'Group 1, Sub 2',
+          description: 'Description',
+          canDrag: false,
+          items: [
+            {
+              id: '11',
+              name: 'Item6',
+              startDate: new Date('2024-05-01T00:00:00'),
+              endDate: new Date('2024-05-03T00:00:00'),
+              canResizeLeft: true,
+              canResizeRight: true,
+              canDrag: true
+            },
+          ]
+        }
+      ]
+    },
+    {
+      id: '1',
+      name: 'Sub 2',
+      description: 'Description',
+      canDrag: false,
+      isExpanded: false,
+      items: [
+        {
+          id: '2',
+          name: 'Item',
+          startDate: new Date('2024-05-01T00:00:00'),
+          endDate: new Date('2024-05-04T00:00:00'),// new Date(),
+          canResizeLeft: true,
+          canResizeRight: true,
+          canDrag: true,
+          canSwitchLane: true
+        }
+      ],
+      errorItems: []
+    },
   ]
 
   constructor(private _NgxDynamicTimelineService: NgxDynamicTimelineService) {

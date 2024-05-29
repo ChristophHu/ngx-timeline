@@ -26,7 +26,7 @@
       <timeline-date-marker *ngIf="showDateMarker" class="absolute top-0 h-full" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
 
       <!-- items -->
-      <div class="absolute top-16 mt-2 flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
+      <div class="absolute top-16 left-0 right-0 bottom-0 mt-2 flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
         <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
           <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
           <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
@@ -36,7 +36,15 @@
   </div>
 
 <ng-template #itemsIterationTemplate let-lane>
+  <ng-container *ngIf="!lane.isExpanded">
+    <div class="relative h-10 mb-2">
+      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-secondary"></div>
+    </div>
+  </ng-container>
   <ng-container *ngIf="lane.isExpanded">
+    <div class="relative h-10 mb-2">
+      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-secondary"></div>
+    </div>
     <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
       <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
       <!-- <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container> -->
