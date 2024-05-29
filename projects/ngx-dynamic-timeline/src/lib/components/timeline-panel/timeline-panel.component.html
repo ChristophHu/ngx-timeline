@@ -1,12 +1,12 @@
-<div class="sticky flex flex-col shrink-0 h-full left-0 border-r bg-gray-100 border-gray-400 resize-handle-right z-10" nxtResizable (resizing)='handleResize($event)' [style.width.px]='width'>
+<div class="sticky flex flex-col shrink-0 h-full left-0 border-r border-static_gray resize-handle-right z-10" nxtResizable (resizing)='handleResize($event)' [style.width.px]='width'>
     <div nxtResizeHandle [resizeEdges]="{right: resizable}"></div>
-    <div class="sticky flex shrink-0 h-16 w-full top-0 left-0 justify-center items-center border-b border-gray-400">Label</div>
+    <div class="sticky flex shrink-0 h-16 w-full top-0 left-0 justify-center items-center border-b border-static_gray">Label</div>
   
     <ng-container *ngFor='let lane of (lanes$ | async); trackBy: trackById; let index = index' [ngTemplateOutlet]='lanesIterationTemplate' [ngTemplateOutletContext]='{lane: lane, index: index, depth: 0}'></ng-container>
   
     <ng-template #lanesIterationTemplate let-lane='lane' let-index='index' let-depth='depth'>
     
-        <div class='inline-flex h-10 w-full px-3 items-center'>
+        <div class='inline-flex h-12 w-full px-3 items-center'>
             <ng-container *ngIf="!!lane.sub">
                 <div [style.marginLeft.px]='depth * 15' (click)='toggleExpand(lane); lane.isExpanded = !lane.isExpanded' class='item-content'>
                     <div class='collapse-icon' [class.collapsed]='!lane.expanded'></div>

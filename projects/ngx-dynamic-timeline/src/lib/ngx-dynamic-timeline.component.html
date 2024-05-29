@@ -1,4 +1,4 @@
-<div class="relative flex flex-row grow h-full bg-red-200 overflow-auto"> 
+<div class="relative flex flex-row grow h-full text-dark overflow-auto"> 
   <timeline-panel
     (widthChanged)="panelWidth = $event"
     [maxWidth]="400"
@@ -15,18 +15,18 @@
       <span>First Lane</span>
     </div> -->
 
-    <div class="relative min-h-full bg-yellow-200">
+    <div class="relative min-h-full">
       <!-- header -->
       <timeline-scale-header [formatter]="scaleGenerator.formatter" [scale]="scale"></timeline-scale-header>
   
       <!-- seperator -->
-      <div *ngFor="let date of scale?.columns; index as i" class="absolute h-full w-px bg-gray-400" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
-  
-      <!-- date-marker -->
-      <timeline-date-marker *ngIf="showDateMarker" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
+      <div *ngFor="let date of scale?.columns; index as i" class="absolute top-16 h-full w-px bg-borderline" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
+
+      <!-- date marker -->
+      <timeline-date-marker *ngIf="showDateMarker" class="absolute top-0 h-full" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
 
       <!-- items -->
-      <div class="flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
+      <div class="absolute top-16 mt-2 flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
         <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
           <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
           <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
@@ -37,17 +37,15 @@
 
 <ng-template #itemsIterationTemplate let-lane>
   <ng-container *ngIf="lane.isExpanded">
-    <div class="mt-10">
-      <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
-        <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
-        <!-- <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container> -->
-      </div>
+    <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
+      <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
+      <!-- <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container> -->
     </div>
   </ng-container>
 </ng-template>
 
 <ng-template #itemTemplate let-lane>
-  <div class="relative flex flex-row h-10">
+  <div class="relative flex flex-row h-12">
     <!-- single item -->
     <div *ngFor="let item of lane.items">
       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)"></timeline-item>
