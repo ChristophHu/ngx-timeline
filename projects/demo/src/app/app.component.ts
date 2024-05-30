@@ -9,6 +9,7 @@ import { NgStyle } from '@angular/common'
 // import { DropableDirective } from '../../../ngx-dragable-dropable/src/lib/dropable.directive'
 // import { DragableDirective } from '../../../ngx-dragable-dropable/src/lib/dragable.directive'
 import { DragAndDropModule, DropEvent, DroppableDirective, ValidateDrop } from 'angular-draggable-droppable';
+import { OverlayModule } from '@angular/cdk/overlay'
 // import { DroppableDirective, ValidateDrop } from 'projects/angular-draggable-droppable/src/lib/droppable.directive';
 
 @Component({
@@ -20,6 +21,7 @@ import { DragAndDropModule, DropEvent, DroppableDirective, ValidateDrop } from '
     DragAndDropModule,
     NgxDynamicTimelineComponent,
     NgxResizeableDirective,
+    
     ResizeHandleDirective,
     RouterOutlet,
     NgStyle

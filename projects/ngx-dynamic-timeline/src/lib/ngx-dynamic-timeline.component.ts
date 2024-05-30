@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, Input, Output, EventEmitter, ChangeDetectorRef, Inject, ElementRef, TemplateRef, NgModule, Provider, ModuleWithProviders } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, Input, Output, EventEmitter, ChangeDetectorRef, Inject, ElementRef, TemplateRef, NgModule, Provider, ModuleWithProviders, ViewChild, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimelineDateMarkerComponent } from './components/timeline-date-marker/timeline-date-marker.component';
 import { TimelineScaleHeaderComponent } from './components/timeline-scale-header/timeline-scale-header.component';
@@ -10,7 +10,7 @@ import { ITimelineItem, Item } from './models/item';
 import { ItemsIterator } from './helpers/items-iterator';
 import { Lane } from './models/lane.model';
 import { ErrorItem } from './models/erroritem.model';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription, filter, fromEvent, of, take } from 'rxjs';
 import { ITimelineZoom, TimelineViewMode } from './models/zoom';
 import { DragEndEvent } from 'angular-draggable-droppable';
 // import { ResizeEvent } from 'angular-resizable-element';
@@ -20,6 +20,10 @@ import { TimelineItemComponent } from './components/timeline-item/timeline-item.
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator';
 import { ResizeEvent } from '../../../ngx-resizeable-element/src/public-api';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+
+// menu
+import { Overlay, OverlayModule, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal'
 
 interface ITimelineModuleConfig {
   strategyManager?: Provider;
@@ -36,6 +40,7 @@ export interface IIdObject {
   standalone: true,
   imports: [
     CommonModule,
+    OverlayModule,
     TimelineDateMarkerComponent,
     TimelineItemComponent,
     TimelinePanelComponent,
@@ -148,7 +153,12 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
   //   // this._ignoreNextScrollEvent = false
   // }
 
-  constructor(private _cdr: ChangeDetectorRef, private _strategyManager: StrategyManager, private _NgxDynamicTimelineService: NgxDynamicTimelineService, @Inject(ElementRef) private _elementRef: ElementRef) {
+  // menu
+  sub!: Subscription
+  @ViewChild('userMenu') userMenu!: TemplateRef<any>
+  overlayRef!: OverlayRef | null
+  
+  constructor(private _cdr: ChangeDetectorRef, private _strategyManager: StrategyManager, private _NgxDynamicTimelineService: NgxDynamicTimelineService, @Inject(ElementRef) private _elementRef: ElementRef, public overlay: Overlay, public viewContainerRef: ViewContainerRef) {
     this._setStrategies(this.zoom)
     this.scaleGenerator = this._strategyManager.getScaleGenerator(this.zoom.viewMode)
   }
@@ -300,6 +310,52 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
 
   _trackById(index: number, item: IIdObject): number | string {
     return item.id
+  }
+
+  open({ x, y }: MouseEvent, user: any) {
+    this.close();
+    const positionStrategy = this.overlay.position()
+      .flexibleConnectedTo({ x, y })
+      .withPositions([
+        {
+          originX: 'end',
+          originY: 'bottom',
+          overlayX: 'end',
+          overlayY: 'top',
+        }
+      ]);
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      scrollStrategy: this.overlay.scrollStrategies.close()
+    });
+
+    this.overlayRef.attach(new TemplatePortal(this.userMenu, this.viewContainerRef, {
+      $implicit: user
+    }));
+
+    this.sub = fromEvent<MouseEvent>(document, 'click')
+      .pipe(
+        filter((event: any) => {
+          const clickTarget = event.target as HTMLElement;
+          return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
+        }),
+        take(1)
+      ).subscribe(() => this.close())
+
+  }
+
+  delete(user: any) {
+    // delete user
+    this.close();
+  }
+
+  close() {
+    this.sub && this.sub.unsubscribe();
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
   }
 }
 

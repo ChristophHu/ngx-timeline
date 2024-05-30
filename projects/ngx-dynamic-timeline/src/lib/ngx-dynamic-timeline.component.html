@@ -55,7 +55,7 @@
 <ng-template #itemTemplate let-lane>
   <div class="relative flex flex-row h-12">
     <!-- single item -->
-    <div *ngFor="let item of lane.items">
+    <div *ngFor="let item of lane.items" (contextmenu)="open($event, item); $event. preventDefault();">
       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)"></timeline-item>
     </div>
     <!-- error item -->
@@ -63,4 +63,12 @@
       <timeline-erroritem [item]="error" [scale]="scale"></timeline-erroritem>
     </div> -->
   </div>
+</ng-template>
+
+<ng-template #userMenu let-user>
+	<section class="user-menu">
+		<div (click)="delete(user)">Delete {{user.name}}</div>
+		<div>Send to</div>
+		<!-- <div (click)="inspectElement()">Inspect</div> -->
+	</section>
 </ng-template>
