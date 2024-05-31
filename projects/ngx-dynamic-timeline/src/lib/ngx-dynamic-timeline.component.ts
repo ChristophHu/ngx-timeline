@@ -158,7 +158,7 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
 
   // menu
   sub!: Subscription
-  @ViewChild('userMenu') userMenu!: TemplateRef<any>
+  @ViewChild('itemMenu') itemMenu!: TemplateRef<any>
   overlayRef!: OverlayRef | null
   
   constructor(private _cdr: ChangeDetectorRef, private _strategyManager: StrategyManager, private _NgxDynamicTimelineService: NgxDynamicTimelineService, @Inject(ElementRef) private _elementRef: ElementRef, public overlay: Overlay, public viewContainerRef: ViewContainerRef, private _notificationService: NgxNotificationsService) {
@@ -334,7 +334,7 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
       scrollStrategy: this.overlay.scrollStrategies.close()
     });
 
-    this.overlayRef.attach(new TemplatePortal(this.userMenu, this.viewContainerRef, {
+    this.overlayRef.attach(new TemplatePortal(this.itemMenu, this.viewContainerRef, {
       $implicit: user
     }));
 
