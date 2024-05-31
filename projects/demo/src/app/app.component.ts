@@ -8,8 +8,8 @@ import { NgStyle } from '@angular/common'
 // import { ValidateDrop } from '../../../ngx-dragable-dropable/src/lib/models/validatedrop‎.model'
 // import { DropableDirective } from '../../../ngx-dragable-dropable/src/lib/dropable.directive'
 // import { DragableDirective } from '../../../ngx-dragable-dropable/src/lib/dragable.directive'
-import { DragAndDropModule, DropEvent, DroppableDirective, ValidateDrop } from 'angular-draggable-droppable';
-import { OverlayModule } from '@angular/cdk/overlay'
+import { DragAndDropModule, DroppableDirective, ValidateDrop } from 'angular-draggable-droppable';
+import { NgxNotificationsComponent, NgxNotificationsService } from '@christophhu/ngx-notifications'
 // import { DroppableDirective, ValidateDrop } from 'projects/angular-draggable-droppable/src/lib/droppable.directive';
 
 @Component({
@@ -20,11 +20,14 @@ import { OverlayModule } from '@angular/cdk/overlay'
     // DropableDirective,
     DragAndDropModule,
     NgxDynamicTimelineComponent,
+    NgxNotificationsComponent,
     NgxResizeableDirective,
-    
     ResizeHandleDirective,
     RouterOutlet,
     NgStyle
+  ],
+  providers: [
+    NgxNotificationsService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'

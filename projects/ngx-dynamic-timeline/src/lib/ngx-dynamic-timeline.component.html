@@ -55,7 +55,7 @@
 <ng-template #itemTemplate let-lane>
   <div class="relative flex flex-row h-12">
     <!-- single item -->
-    <div *ngFor="let item of lane.items" (contextmenu)="open($event, item); $event. preventDefault();">
+    <div *ngFor="let item of lane.items" (contextmenu)="open($event, item)">
       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)"></timeline-item>
     </div>
     <!-- error item -->
@@ -65,10 +65,20 @@
   </div>
 </ng-template>
 
-<ng-template #userMenu let-user>
-	<section class="user-menu">
-		<div (click)="delete(user)">Delete {{user.name}}</div>
-		<div>Send to</div>
-		<!-- <div (click)="inspectElement()">Inspect</div> -->
+<ng-template #userMenu let-item>
+	<section class="block bg-primary border border-borderline shadow-lg rounded-lg z-999">
+		<div class="flex flex-row px-2 py-1 m-1 items-center hover:bg-secondary rounded">
+      <timeline-icon class="w-5 h-5 stroke-1 stroke-current" name="pencil"></timeline-icon>
+      <span class="ml-2">Bearbeiten</span>
+    </div>
+    <div class="flex flex-row px-2 py-1 m-1 items-center hover:bg-secondary rounded">
+      <timeline-icon class="w-5 h-5 stroke-1 stroke-current" name="add"></timeline-icon>
+      <span class="ml-2">Einfügen</span>
+    </div>
+    <hr class="h-px border-0 bg-borderline my-1">
+		<div class="flex flex-row px-2 py-1 m-1 items-center hover:bg-red-500 hover:text-black rounded" (click)="contextMenuDelete($event, item)">
+      <timeline-icon class="w-5 h-5 stroke-1 stroke-current" name="trash"></timeline-icon>
+      <span class="ml-2">Entfernen</span>
+    </div>
 	</section>
 </ng-template>

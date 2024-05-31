@@ -24,6 +24,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 // menu
 import { Overlay, OverlayModule, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal'
+import { TimelineIconComponent } from './components/timeline-icon/timeline-icon.component';
+import { NgxNotificationsService } from '@christophhu/ngx-notifications';
 
 interface ITimelineModuleConfig {
   strategyManager?: Provider;
@@ -42,6 +44,7 @@ export interface IIdObject {
     CommonModule,
     OverlayModule,
     TimelineDateMarkerComponent,
+    TimelineIconComponent,
     TimelineItemComponent,
     TimelinePanelComponent,
     TimelineScaleHeaderComponent
@@ -158,7 +161,7 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
   @ViewChild('userMenu') userMenu!: TemplateRef<any>
   overlayRef!: OverlayRef | null
   
-  constructor(private _cdr: ChangeDetectorRef, private _strategyManager: StrategyManager, private _NgxDynamicTimelineService: NgxDynamicTimelineService, @Inject(ElementRef) private _elementRef: ElementRef, public overlay: Overlay, public viewContainerRef: ViewContainerRef) {
+  constructor(private _cdr: ChangeDetectorRef, private _strategyManager: StrategyManager, private _NgxDynamicTimelineService: NgxDynamicTimelineService, @Inject(ElementRef) private _elementRef: ElementRef, public overlay: Overlay, public viewContainerRef: ViewContainerRef, private _notificationService: NgxNotificationsService) {
     this._setStrategies(this.zoom)
     this.scaleGenerator = this._strategyManager.getScaleGenerator(this.zoom.viewMode)
   }
@@ -312,8 +315,9 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
     return item.id
   }
 
+  // context-menu
   open({ x, y }: MouseEvent, user: any) {
-    this.close();
+    this.contextMenuClose();
     const positionStrategy = this.overlay.position()
       .flexibleConnectedTo({ x, y })
       .withPositions([
@@ -341,21 +345,25 @@ export class NgxDynamicTimelineComponent implements OnInit, AfterViewInit {
           return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
         }),
         take(1)
-      ).subscribe(() => this.close())
+      ).subscribe(() => this.contextMenuClose())
 
   }
 
-  delete(user: any) {
-    // delete user
-    this.close();
-  }
-
-  close() {
-    this.sub && this.sub.unsubscribe();
+  contextMenuClose() {
+    this.sub && this.sub.unsubscribe()
     if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
+      this.overlayRef.dispose()
+      this.overlayRef = null
     }
+  }
+
+  contextMenuDelete(event: MouseEvent, item: any) {
+    console.log('delete', item)
+    // event.preventDefault();
+    this._notificationService.open({ type: 'warning', header: 'Eintrag löschen', message: 'Soll der Eintrag wirklich gelöscht werden?', autoClose: false })?.subscribe((data: any) => { 
+      // if (data == true) alert('yes')
+    })
+    this.contextMenuClose()
   }
 }
 

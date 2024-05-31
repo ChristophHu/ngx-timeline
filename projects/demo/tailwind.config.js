@@ -40,7 +40,10 @@ module.exports = {
       },
       fontSize: {
         x: '0.6rem'
-      }
+      },
+      zIndex: {
+        '999': '999',
+      },
     },
   },
   plugins: [
