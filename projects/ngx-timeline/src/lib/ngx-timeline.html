@@ -1,0 +1,81 @@
+<div class="relative flex flex-row grow h-full text-dark overflow-hidden"> 
+  <timeline-panel
+    (widthChanged)="panelWidth = $event"
+    [maxWidth]="400"
+    [minWidth]="50"
+    [resizable]="isPanelResizable"></timeline-panel>
+    <!-- [laneTemplate]="panelLaneTemplate"
+    [items]="itemsIterator.items"
+    [lanes]="lanes">
+  </timeline-panel> -->
+  <!-- [itemTemplate]="panelItemTemplate" -->
+    
+    <!-- lanes -->
+    <!-- <div class="relative flex h-10 top-[64px] bg-green-200 items-center text-center">
+      <span>First Lane</span>
+    </div> -->
+
+    <div class="relative min-h-full">
+      <!-- header -->
+      <timeline-scale-header [formatter]="scaleGenerator.formatter" [scale]="scale"></timeline-scale-header>
+  
+      <!-- seperator -->
+      <div *ngFor="let date of scale?.columns; index as i" class="absolute top-16 h-full w-px bg-borderline" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
+
+      <!-- date marker -->
+      <timeline-date-marker *ngIf="showDateMarker" class="absolute top-0 h-full" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
+
+      <!-- items -->
+      <div class="absolute top-16 left-0 right-0 bottom-0 mt-1 flex flex-col h-auto" *ngIf="(lanes$ | async) as lanes">
+        <!-- drop highlight on dragstart -->
+        <div *ngIf="showDropHightlight" class="relative flex pointer-events-none">
+          <div class="drop-highlight" [style.top.px]="dropHighlightTop" [style.left.px]="dropHighlightLeft" [style.height.px]="48" [style.width.px]="dropHighlightWidth"></div>
+        </div>
+
+        <div class="relative flex flex-row h-12" *ngFor="let lane of lanes; trackBy: _trackById;" [attr.data-lane-id]="lane.id">
+          
+          
+          <!-- item -->
+          <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
+        </div>
+        <!-- <ng-container *ngFor="let lane of lanes; trackBy: _trackById;">
+          <span>{{ lane.id }}</span>
+          <ng-container *ngIf="lane.sub" [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>
+          <ng-container *ngIf="lane.items" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: lane}"></ng-container>      
+        </ng-container> -->
+      </div>
+    </div>
+  </div>
+
+<!-- <ng-template #itemsIterationTemplate let-lane>
+  <ng-container *ngIf="!lane.isExpanded">
+    <div class="relative h-10 mb-2">
+      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-secondary"></div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="lane.isExpanded">
+    <div class="relative h-10 mb-2">
+      <div class="absolute h-10 w-full left-0 right-0 bg-gradient_slim-45 to-secondary"></div>
+    </div>
+    <div *ngFor="let sub of (lane.sub || []); trackBy: _trackById;">
+      <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
+      <ng-container [ngTemplateOutlet]="itemsIterationTemplate" [ngTemplateOutletContext]="{$implicit: sub}"></ng-container>
+    </div>
+  </ng-container>
+</ng-template> -->
+
+<ng-template #itemTemplate let-lane>
+  <!-- <div class="relative flex flex-row h-12"> -->
+    <!-- <span>{{ lane.id }}</span> -->
+    <!-- single item -->
+    <div *ngFor="let item of lane.items">
+      <!-- <span>{{ item.id }}</span> -->
+      <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)" (dragStart)="_onItemDragStart($event.event, $event.item)" (dragging)="_onItemDragging($event.event, $event.item)"></timeline-item>
+    </div>
+
+    <!-- error item -->
+    <!-- <div *ngFor="let error of lane.errorItems">
+      <timeline-erroritem [item]="error" [scale]="scale"></timeline-erroritem>
+    </div> -->
+  <!-- </div> -->
+</ng-template>

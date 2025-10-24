@@ -1,0 +1,15 @@
+<div class="flex flex-col h-full overflow-hidden">
+  <div class="relative flex grow" *ngIf="groups.length">
+    <div *ngFor="let group of groups; trackBy: trackById; index as i" [style.width.px]="group.width" class="group relative flex h-full justify-center items-start border-t border-r border-borderline">
+      <div>{{group.name}}</div>
+    </div>
+    <div class="absolute flex h-auto top-8 bottom-0">
+      <div *ngFor="let column of columns; trackBy: trackById">
+        <div class="relative flex h-full w-[48px] justify-center items-start" [ngClass]="{'bg-primary brightness-[130%]': column.date.getDay() == 6 || column.date.getDay() == 0 }">
+          {{ formatter?.formatColumn(column, 48, "en") }}
+        </div>
+        <div class="absolute top-6 h-2 w-12 border-r border-b border-borderline"></div>
+      </div>
+    </div>
+  </div>
+</div>
