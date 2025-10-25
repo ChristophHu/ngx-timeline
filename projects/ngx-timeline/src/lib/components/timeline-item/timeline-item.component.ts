@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { ITimelineItem } from '../../models/item';
 import { IScale } from '../../models/scale';
-import { DragDirective, DragEndEvent } from '@christophhu/ngx-drag-n-drop'
+import { DragEndEvent } from '@christophhu/ngx-drag-n-drop'
 import { TimelineIconComponent } from '../timeline-icon/timeline-icon.component';
 import { dateDiff, getDateRangeString } from '../../helpers/utils';
-import { ResizeableDirective, ResizeEvent, ResizeHandleDirective } from '@christophhu/ngx-resizeable';
+import { ResizeEvent, ResizeHandleDirective } from '@christophhu/ngx-resizeable';
+import { ResizeableDirective } from '@christophhu/ngx-resizeable';
 
 @Component({
   selector: 'timeline-item',
   standalone: true,
   imports: [
     CommonModule,
-    DragDirective,
     ResizeableDirective,
     ResizeHandleDirective,
     TimelineIconComponent

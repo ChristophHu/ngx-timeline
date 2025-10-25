@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { IScale, IScaleColumn, IScaleFormatter, IScaleGroup } from '../../models/scale'
-import { IIdObject } from '../../ngx-dynamic-timeline.component'
 import { CommonModule } from '@angular/common'
+import { IIdObject } from '../../models/id-object'
 
 interface IGeneratedGroup {
   id: string

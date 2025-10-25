@@ -1,12 +1,13 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core'
+import { provideRouter } from '@angular/router'
+import { routes } from './app.routes'
+import { TimelineModule } from '../../../ngx-timeline/src/public-api'
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
-    provideRouter(routes)
+    importProvidersFrom(TimelineModule.forChild(null)),
+    provideRouter(routes),
+    provideZonelessChangeDetection()
   ]
 };

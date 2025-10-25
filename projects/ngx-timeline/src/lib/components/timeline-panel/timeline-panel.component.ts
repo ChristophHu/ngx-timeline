@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { Observable } from "rxjs"
 import { NgxTimelineService } from "../../services/ngx-timeline.service"
 import { CommonModule } from '@angular/common'
-import { Lane } from "../../models/lane.model"
+import { Lane } from "../../models/lane"
 import { ITimelineItem } from "../../models/item"
 
 import { ResizeEvent, ResizeHandleDirective } from "@christophhu/ngx-resizeable"

@@ -13,15 +13,19 @@ export interface IStrategyManager<ViewMode = TimelineViewMode> {
 
 @Injectable()
 export class DefaultStrategyManager<ViewMode> implements IStrategyManager<ViewMode> {
-  protected _generatorsDictionary: any = {
-    [TimelineViewMode.Day]: this._dayGenerator
+  protected _generatorsDictionary: any;
+
+  constructor(@Inject(DayScaleGenerator) protected _dayGenerator: IScaleGenerator) {
+    this._generatorsDictionary = {
+      [TimelineViewMode.Day]: this._dayGenerator
+    };
   }
 
   protected _calculatorsDictionary: any = {
     [TimelineViewMode.Day]: new DaysViewModeAdaptor()
   }
 
-  constructor(@Inject(DayScaleGenerator) protected _dayGenerator: IScaleGenerator) {}
+  // constructor(@Inject(DayScaleGenerator) protected _dayGenerator: IScaleGenerator) {}
 
   getViewModeAdaptor(viewMode: ViewMode): IViewModeAdaptor {
     return this._calculatorsDictionary[viewMode as unknown as TimelineViewMode];

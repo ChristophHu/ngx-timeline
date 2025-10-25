@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Lane } from '../models/lane.model';
+import { Lane } from '../models/lane';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({

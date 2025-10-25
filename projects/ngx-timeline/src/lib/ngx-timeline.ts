@@ -9,7 +9,7 @@ import { IViewModeAdaptor } from './models/view-adapter'
 import { IItemsIterator } from './models/items-iterator'
 import { ItemsIterator } from './helpers/items-iterator'
 import { Item, ITimelineItem } from './models/item'
-import { Lane } from './models/lane.model'
+import { Lane } from './models/lane'
 import { Observable, of } from 'rxjs'
 import { ITimelineZoom, TimelineViewMode } from './models/zoom'
 import { StrategyManager } from './helpers/strategy-manager'
@@ -17,6 +17,7 @@ import { NgxTimelineService } from './services/ngx-timeline.service'
 import { ResizeEvent } from '@christophhu/ngx-resizeable'
 import { IIdObject } from './models/id-object'
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator'
+import { DragEndEvent } from '@christophhu/ngx-drag-n-drop'
 
 interface ITimelineModuleConfig {
   strategyManager?: Provider
@@ -25,7 +26,7 @@ interface ITimelineModuleConfig {
 }
 
 @Component({
-  selector: 'lib-ngx-timeline',
+  selector: 'ngx-timeline',
   imports: [
     CommonModule,
     TimelineDateMarkerComponent,
