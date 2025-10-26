@@ -16,7 +16,6 @@
     @for (date of scale.columns; track $index) {
       <div class="absolute top-16 h-full w-px bg-borderline" [style.right.px]="48 * ($index + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div>
     }
-    <!-- <div *ngFor="let date of scale?.columns; index as i" class="absolute top-16 h-full w-px bg-borderline" [style.right.px]="48 * (i + 1)" [style.height]="'calc(100% - ' + 64 + 'px)'"></div> -->
 
     <!-- date marker -->
     @if (showDateMarker) {
@@ -27,10 +26,18 @@
     @if ((lanes$ | async); as lanes) {
 
       <div class="absolute top-16 left-0 right-0 bottom-0 mt-1 flex flex-col h-auto">
+
         <!-- drop highlight on dragstart -->
         @if (showDropHightlight) {
           <div class="relative flex pointer-events-none">
             <div class="drop-highlight" [style.top.px]="dropHighlightTop" [style.left.px]="dropHighlightLeft" [style.height.px]="48" [style.width.px]="dropHighlightWidth"></div>
+          </div>
+        }
+
+        <!-- overlay items issue-->
+        @if (showOverlayItems) {
+          <div class="relative flex pointer-events-none">
+            <div class="overlayissue" [style.top.px]="dropHighlightTop" [style.left.px]="dropHighlightLeft" [style.height.px]="48" [style.width.px]="dropHighlightWidth"></div>
           </div>
         }
 

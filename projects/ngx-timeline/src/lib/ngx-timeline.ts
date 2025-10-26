@@ -60,6 +60,9 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   public dropHighlightLeft: number = 0
   public dropHighlightWidth: number = 0
 
+  // overlay items
+  public showOverlayItems: boolean = true
+  
   // errorItem: ErrorItem[] = []
 
   @Output() itemMoved: EventEmitter<ITimelineItem> = new EventEmitter<ITimelineItem>()
