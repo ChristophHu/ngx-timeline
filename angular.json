@@ -103,7 +103,12 @@
               "tsConfig": "projects/ngx-timeline/tsconfig.lib.json"
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "production",
+          "options": {
+            "styles": [
+              "projects/bgx-timeline/src/lib/style/tailwind.scss"
+            ]
+          }
         },
         "test": {
           "builder": "@angular/build:karma",

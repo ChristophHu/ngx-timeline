@@ -54,7 +54,8 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   @Input() verticalDrag: boolean = true
   public itemsIterator: IItemsIterator = new ItemsIterator()
 
-  public showDropHightlight: boolean = false
+  // drag n drop highlight
+  public showDropHightlight: boolean = true
   public dropHighlightTop: number = 0
   public dropHighlightLeft: number = 0
   public dropHighlightWidth: number = 0
@@ -160,6 +161,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     this.lanes$ = this._NgxTimelineService.lanes$
     this._NgxTimelineService.lanes$.subscribe({
       next: (data: Lane[]) => {
+        console.log('NgxTimeline: received lanes update', data)
         this._latestLanes = data || []
       }
     })

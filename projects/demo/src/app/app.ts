@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Lane, NgxTimeline } from '../../../ngx-timeline/src/public-api'
+import { NgxTimelineService } from '../../../ngx-timeline/src/lib/services/ngx-timeline.service'
 
 @Component({
   selector: 'app-root',
@@ -116,4 +117,8 @@ export class App {
       canSwitchLane: true
     }
   ]
+
+  constructor(private _NgxTimelineService: NgxTimelineService) {
+    this._NgxTimelineService.setLanes(this.lanes)
+  }
 }

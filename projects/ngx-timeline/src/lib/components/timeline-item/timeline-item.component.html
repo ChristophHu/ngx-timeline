@@ -1,47 +1,49 @@
-<div class="group absolute flex h-12 mt-1 items-center text-white rounded overflow-hidden cursor-pointer z-10"
-  *ngIf="isInScaleRange"
-  ghostElementPositioning="absolute"
-  Resizeable
-  Dragable
-  (click)="onClick()"
-  (dragStart)="onDragStart($event)"
-  (dragging)="onDragging($event)"
-  (dragEnd)="onItemDropped($event)"
-  (resizeEnd)="onItemResizeEnd($event)"
-  (resizeStart)="onItemResizeStart($event)"
-  [dragAxis]="{y: item.canSwitchLane ? item.canSwitchLane : false, x: item.canDrag}"
-  [enableGhostResize]="true"
-  [style.height.px]="height"
-  [style.left.px]="item._left"
-  [style.width.px]="item._width"
-  [attr.data-item-id]="item.id">
+@if (isInScaleRange) {
+  <div class="group absolute flex h-12 mt-1 items-center text-white rounded overflow-hidden cursor-pointer z-10"
+    ghostElementPositioning="absolute"
+    Resizeable
+    Dragable
+    (click)="onClick()"
+    (dragStart)="onDragStart($event)"
+    (dragging)="onDragging($event)"
+    (dragEnd)="onItemDropped($event)"
+    (resizeEnd)="onItemResizeEnd($event)"
+    (resizeStart)="onItemResizeStart($event)"
+    [dragAxis]="{ x: item.canDrag, y: item.canSwitchLane ? item.canSwitchLane : false }"
+    [enableGhostResize]="true"
+    [style.height.px]="height"
+    [style.left.px]="item._left"
+    [style.width.px]="item._width"
+    [attr.data-item-id]="item.id">
 
-  <div class="absolute h-full left-0 right-0 m-1 bg-secondary rounded-lg">
-    <div *ngIf="item.canResizeLeft" Resize [resizeEdges]="{ left: item.canResizeLeft }" class="absolute left-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center text-static_gray cursor-col-resize overflow-hidden">
-      <div class="h-6 w-6 -ml-2 stroke-2">
-        <timeline-icon name="minus-vertical"></timeline-icon>
-      </div>
-    </div>
-    <div class="h-full w-full group-hover:bg-accent group-active:be-accent rounded-lg">
-      <div class="absolute top-[2px] bottom-[2px] right-2 left-2 bg-secondary rounded" [ngClass]="{'grid place-content-center': item._width && item._width <= 48 }">
-        <ng-container [ngSwitch]="true">
-          <ng-container *ngIf="item._width && item._width <= 48">
+    <div class="absolute h-full left-0 right-0 m-1 bg-secondary rounded-lg">
+      @if (item.canResizeLeft) {
+        <div Resize [resizeEdges]="{ left: item.canResizeLeft }" class="absolute left-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center text-static_gray cursor-col-resize overflow-hidden">
+          <div class="h-6 w-6 -ml-2 stroke-2">
+            <timeline-icon name="minus-vertical"></timeline-icon>
+          </div>
+        </div>
+      }
+      <div class="h-full w-full group-hover:bg-accent group-active:be-accent rounded-lg">
+        <div class="absolute top-[2px] bottom-[2px] right-2 left-2 bg-secondary rounded" [ngClass]="{'grid place-content-center': item._width && item._width <= 48 }">
+          @if (item._width && item._width <= 48) {
             <span>X</span>
-            <p class="-mt-1 mx-1 text-x text-static_gray">{{ getDateRange(item) }}</p>
-          </ng-container>
-          <ng-container *ngIf="item._width && item._width > 48">
+          }
+          @else {
             <div class="flex flex-col">
               <span class="mx-1">{{ item.name }}</span>
-              <p class="-mt-1 mx-1 text-x text-static_gray">{{ getDateRange(item) }}</p>
+              <p class="-mt-1 mx-1 text-xs text-label">{{ getDateRange(item) }}</p>
             </div>
-          </ng-container>
-        </ng-container>
+          }
+        </div>
       </div>
-    </div>
-    <div *ngIf="item.canResizeRight" Resize [resizeEdges]="{ right: item.canResizeRight }" class="absolute top-0 right-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center text-static_gray cursor-col-resize overflow-hidden">
-      <div class="h-6 w-6 -ml-2 stroke-2">
-        <timeline-icon name="minus-vertical"></timeline-icon>
-      </div>
+      @if (item.canResizeRight) {
+        <div Resize [resizeEdges]="{ right: item.canResizeRight }" class="absolute top-0 right-0 h-full w-2 group-hover:block group-focus:block hidden place-content-center text-static_gray cursor-col-resize overflow-hidden">
+          <div class="h-6 w-6 -ml-2 stroke-2">
+            <timeline-icon name="minus-vertical"></timeline-icon>
+          </div>
+        </div>  
+      }
     </div>
   </div>
-</div>
+}

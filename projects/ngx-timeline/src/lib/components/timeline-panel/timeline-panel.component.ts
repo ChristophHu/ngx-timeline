@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from "@angular/core"
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges } from "@angular/core"
 import { Observable } from "rxjs"
 import { NgxTimelineService } from "../../services/ngx-timeline.service"
 import { CommonModule } from '@angular/common'
@@ -6,7 +6,7 @@ import { Lane } from "../../models/lane"
 import { ITimelineItem } from "../../models/item"
 
 import { ResizeEvent, ResizeHandleDirective } from "@christophhu/ngx-resizeable"
-import { IIdObject } from "../../models/id-object"
+
 @Component({
   selector: 'timeline-panel',
   standalone: true,
@@ -31,19 +31,12 @@ export class TimelinePanelComponent {
   
   constructor(private _NgxTimelineService: NgxTimelineService) {
     this.lanes$ = this._NgxTimelineService.lanes$
-    // this._NgxDynamicTimelineService.lanes$.subscribe({
-    //   next: (data) => console.log(data)
-    // })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (Object.keys(changes).some(key => ['width', 'minWidth', 'maxWidth'].includes(key))) {
       this._validateWidth()
     }
-  }
-
-  trackById(index: number, item: IIdObject): number | string {
-    return item.id
   }
 
   handleResize(event: ResizeEvent | any): void {
