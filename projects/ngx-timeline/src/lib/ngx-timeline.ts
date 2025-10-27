@@ -259,8 +259,9 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     this.showOverlayItems = true
     console.log('NgxTimeline: checking overlay issues for item', item)
     this.itemsIterator.forEach((it: ITimelineItem) => {
+      console.log('NgxTimeline: comparing with item', it)
       if (it.id === item.id) return
-      if (it.lane !== item.lane) return
+      if (it.lane.toString() !== item.lane.toString()) return
 
       if ((item.endDate > it.startDate) && (item.startDate < it.endDate)) {
         // overlay issue detected
