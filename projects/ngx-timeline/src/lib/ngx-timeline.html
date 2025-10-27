@@ -24,20 +24,12 @@
 
     <!-- items -->
     @if ((lanes$ | async); as lanes) {
-
       <div class="absolute top-16 left-0 right-0 bottom-0 mt-1 flex flex-col h-auto">
 
         <!-- drop highlight on dragstart -->
         @if (showDropHightlight) {
           <div class="relative flex pointer-events-none">
             <div class="drop-highlight" [style.top.px]="dropHighlightTop" [style.left.px]="dropHighlightLeft" [style.height.px]="48" [style.width.px]="dropHighlightWidth"></div>
-          </div>
-        }
-
-        <!-- overlay items issue-->
-        @if (showOverlayItems) {
-          <div class="relative flex pointer-events-none">
-            <div class="overlayissue" [style.top.px]="dropHighlightTop" [style.left.px]="dropHighlightLeft" [style.height.px]="48" [style.width.px]="dropHighlightWidth"></div>
           </div>
         }
 
@@ -50,10 +42,15 @@
             }
           </div>
         }
-        
+
+        <!-- overlay items issue-->
+        @if (showOverlayItems) {
+          <div class="relative flex pointer-events-none">
+            <div class="overlayissue" [style.top.px]="overlayIssueTop" [style.left.px]="overlayIssueLeft" [style.height.px]="48" [style.width.px]="overlayIssueWidth"></div>
+          </div>
+        }
       </div>
     }
-    
   </div>
 </div>
 
@@ -79,7 +76,7 @@
     <!-- <span>{{ lane.id }}</span> -->
     <!-- single item -->
      @for (item of lane.items; track $index) {
-       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)" (dragStart)="_onItemDragStart($event.event, $event.item)" (dragging)="_onItemDragging($event.event, $event.item)"></timeline-item>
+       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)" (dragStart)="_onItemDragStart($event.event, $event.item)" (dragging)="_onItemDragging($event.event, $event.item)" (dragEnd)="_onItemDragEnd($event.event, $event.item)"></timeline-item>
      }
     <!-- <div *ngFor="let item of lane.items">
       <timeline-item [item]="item" [scale]="scale" (itemResized)="_onItemResized($event.event, $event.item)" (itemMoved)="_onItemMoved($event.event, $event.item)" (dragStart)="_onItemDragStart($event.event, $event.item)" (dragging)="_onItemDragging($event.event, $event.item)"></timeline-item>

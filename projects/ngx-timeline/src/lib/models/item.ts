@@ -21,6 +21,10 @@ export interface ITimelineItem<Meta = any> extends IIdObject {
    */
   name: string
   /**
+   * Lane where item is placed.
+   */
+  lane: string
+  /**
    * Date when item starts.
    */
   startDate: Date

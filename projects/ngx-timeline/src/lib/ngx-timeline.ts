@@ -62,7 +62,10 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
   // overlay items
   public showOverlayItems: boolean = true
-  
+  overlayIssueTop: number = 0
+  overlayIssueLeft: number = 0
+  overlayIssueWidth: number = 0
+
   // errorItem: ErrorItem[] = []
 
   @Output() itemMoved: EventEmitter<ITimelineItem> = new EventEmitter<ITimelineItem>()
@@ -217,6 +220,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     
     item.updateView && item.updateView()
   }
+
   private _calculateItemWidth(item: ITimelineItem): number {
     if (!item.startDate || !item.endDate)
       return 0
@@ -249,6 +253,25 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     const countOfColumns = this.viewModeAdaptor.getDurationInColumns(this.scale!.startDate, new Date())
 
     this.dateMarkerLeftPosition = countOfColumns * this.zoom.columnWidth // fehler
+  }
+
+  private _checkItemsOverlayIssue(item: ITimelineItem): void {
+    this.showOverlayItems = true
+    console.log('NgxTimeline: checking overlay issues for item', item)
+    this.itemsIterator.forEach((it: ITimelineItem) => {
+      if (it.id === item.id) return
+      if (it.lane !== item.lane) return
+
+      if ((item.endDate > it.startDate) && (item.startDate < it.endDate)) {
+        // overlay issue detected
+        console.log('NgxTimeline: overlay issue detected between items', item, it)
+        this.overlayIssueTop = this._calculateItemTopPosition(it)
+        this.overlayIssueLeft = this._calculateItemLeftPosition(it)
+        this.overlayIssueWidth = this._calculateItemWidth(it)
+        this.showOverlayItems = true
+        this._cdr.detectChanges()
+      }
+    })
   }
 
   _onItemMoved(event: DragEndEvent, movedItem: ITimelineItem): void {
@@ -368,6 +391,14 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     this.showDropHightlight = true
     this._cdr.detectChanges()
   }
+
+  _onItemDragEnd(event: any, item: ITimelineItem): void {
+    console.log('NgxTimeline: drag end for item', item)
+    this._checkItemsOverlayIssue(item)
+    this.showDropHightlight = false
+    this._cdr.detectChanges()
+  }
+
   _onItemDragging(event: any, item: ITimelineItem): void {
     const transferColumns = Math.round(event.x / this.zoom.columnWidth)
     const provisionalItem: ITimelineItem = Object.assign({}, item)

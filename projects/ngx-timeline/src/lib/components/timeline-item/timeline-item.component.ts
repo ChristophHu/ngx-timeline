@@ -47,6 +47,7 @@ export class TimelineItemComponent {
   @Output() itemMoved = new EventEmitter<{ event: DragEndEvent, item: ITimelineItem }>()
   @Output() dragStart = new EventEmitter<{ event: any, item: ITimelineItem }>()
   @Output() dragging = new EventEmitter<{ event: any, item: ITimelineItem }>()
+  @Output() dragEnd = new EventEmitter<{ event: any, item: ITimelineItem }>()
 
   get item(): ITimelineItem {
     return this._item
@@ -78,10 +79,17 @@ export class TimelineItemComponent {
   onDragging(event: any): void {
     this.dragging.emit({event, item: this._item})
   }
+  onDragEnd(event: any): void {
+    console.log('NgxTimeline: drag end event', event)
+    if (!this.isItemResizingStarted) {
+      this.dragEnd.emit({event, item: this._item})
+    }
+  }
 
   onItemDropped(event: any): void {
     if (!this.isItemResizingStarted) {
       this.itemMoved.emit({event, item: this._item})
+      this.dragEnd.emit({event, item: this._item})
     }
   }
 
