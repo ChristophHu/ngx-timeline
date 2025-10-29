@@ -97,7 +97,7 @@ export class App {
     {
       id: '31',
       lane: '3',
-      name: 'Item',
+      name: 'Item 3',
       startDate: new Date('2024-05-01T00:00:00'),
       endDate: new Date('2024-05-04T00:00:00'),// new Date(),
       canResizeLeft: true,
@@ -108,7 +108,7 @@ export class App {
     {
       id: '51',
       lane: '5',
-      name: 'Item',
+      name: 'Item 5',
       startDate: new Date('2024-05-01T00:00:00'),
       endDate: new Date('2024-05-04T00:00:00'),// new Date(),
       canResizeLeft: true,
