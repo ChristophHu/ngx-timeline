@@ -61,7 +61,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   public dropHighlightWidth: number = 0
 
   // overlay items
-  public showOverlayItems: boolean = true
+  public showOverlayItems: boolean = false
   overlayIssueTop: number = 0
   overlayIssueLeft: number = 0
   overlayIssueWidth: number = 0
@@ -229,6 +229,13 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
     return columnsOccupied * 48 -48
   }
+  private _calculateItemOverlayWidth(startDate: Date, endDate: Date): number {
+    if (!startDate || !endDate) return 0
+
+    const columnsOccupied = this.viewModeAdaptor.getUniqueColumnsWithinRange(new Date(startDate), new Date(endDate))
+
+    return columnsOccupied * 48 -48
+  }
   private _calculateItemTopPosition(item: ITimelineItem): number {
     const host: HTMLElement | null = this._elementRef?.nativeElement ?? null
     if (!host) return 0
@@ -256,27 +263,68 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   }
 
   private _checkItemsOverlayIssue(item: ITimelineItem): void {
-    this.showOverlayItems = true
-    console.log('NgxTimeline: checking overlay issues for item', item)
     this.itemsIterator.forEach((it: ITimelineItem) => {
-      console.log('NgxTimeline: comparing with item', it)
+      
       if (it.id === item.id) return
       if (it.lane.toString() !== item.lane.toString()) return
 
-      if ((item.endDate > it.startDate) && (item.startDate < it.endDate)) {
-        // overlay issue detected
-        console.log('NgxTimeline: overlay issue detected between items', item, it)
-        this.overlayIssueTop = this._calculateItemTopPosition(it)
-        this.overlayIssueLeft = this._calculateItemLeftPosition(it)
-        this.overlayIssueWidth = this._calculateItemWidth(it)
-        this.showOverlayItems = true
-        this._cdr.detectChanges()
+      this.overlayIssueTop = item._top ? item._top : 0
+      switch (true) {
+        // 1. A starts after B starts and A ends before B ends (A inside B)
+        case (item.startDate >= it.startDate) && (item.endDate <= it.endDate):
+          console.log('A starts after B starts and A ends before B ends (A inside B)', item, it)
+          this.overlayIssueLeft = this._calculateItemLeftPosition(item)
+          this.overlayIssueWidth = this._calculateItemOverlayWidth(item.startDate, item.endDate)
+          this.showOverlayItems = true
+          break
+        // 2. B starts after A starts and B ends before A ends (B inside A)
+        case (it.startDate >= item.startDate) && (it.endDate <= item.endDate):
+          console.log('B starts after A starts and B ends before A ends (B inside A)', it, item)
+          this.overlayIssueLeft = this._calculateItemLeftPosition(it)
+          this.overlayIssueWidth = this._calculateItemOverlayWidth(it.startDate, it.endDate)
+          this.showOverlayItems = true
+          break
+        // 3. A starts before B starts and A ends after B starts (A overlaps start of B)
+        case (item.startDate < it.startDate) && (item.endDate > it.startDate):
+          console.log('A starts before B starts and A ends after B starts (A overlaps start of B)', item, it)
+          this.overlayIssueLeft = this._calculateItemLeftPosition(it)
+          this.overlayIssueWidth = this._calculateItemOverlayWidth(it.startDate, item.endDate)
+          this.showOverlayItems = true
+          break
+        // 4. B starts before AB starts and B ends after A starts (B overlaps start of A)
+        case (it.startDate < item.startDate) && (it.endDate > item.startDate):
+          console.log('B starts before A starts and B ends after A starts (B overlaps start of A)', it, item)
+          this.overlayIssueLeft = this._calculateItemLeftPosition(item)
+          this.overlayIssueWidth = this._calculateItemOverlayWidth(item.startDate, it.endDate)
+          this.showOverlayItems = true
+          break
+        // 5. A ends after B ends and A starts before B ends (A overlaps end of B)
+        case (item.endDate > it.endDate) && (item.startDate < it.endDate):
+          console.log('A ends after B ends and A starts before B ends (A overlaps end of B)', item, it)
+          this.overlayIssueLeft = this._calculateItemLeftPosition(item)
+          this.overlayIssueWidth = this._calculateItemOverlayWidth(item.startDate, it.endDate)
+          this.showOverlayItems = true
+          break
+        // 6. B ends after A ends and B starts before A ends (B overlaps end of A)
+        case (it.endDate > item.endDate) && (it.startDate < item.endDate):
+          console.log('B ends after A ends and B starts before A ends (B overlaps end of A))', it, item)
+          this.overlayIssueLeft = this._calculateItemLeftPosition(it)
+          this.overlayIssueWidth = this._calculateItemOverlayWidth(it.startDate, item.endDate)
+          this.showOverlayItems = true
+          break
+        default:
+          console.log('no overlapping elemets')
+          return
       }
+      
+      this._cdr.detectChanges()
     })
   }
 
   _onItemMoved(event: DragEndEvent, movedItem: ITimelineItem): void {
+    this.showOverlayItems = false
     this.showDropHightlight = false
+
     switch (true) {
       case event.y >= 10 || event.y <= -10 && (event.x >= 10 || event.x <= -10):
         movedItem = this.movedHorizontally(event, movedItem)
@@ -306,8 +354,12 @@ export class NgxTimeline implements OnInit, AfterViewInit {
         this.itemsIterator.setItems(itemsForIterator)
       }
     }
+
     this.redraw()
+    this._checkItemsOverlayIssue(movedItem)
     this.showDropHightlight = false
+    
+    this._cdr.detectChanges()
   }
 
   movedHorizontally(event: DragEndEvent, movedItem: ITimelineItem): ITimelineItem {
@@ -394,10 +446,9 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   }
 
   _onItemDragEnd(event: any, item: ITimelineItem): void {
-    console.log('NgxTimeline: drag end for item', item)
-    this._checkItemsOverlayIssue(item)
-    this.showDropHightlight = false
-    this._cdr.detectChanges()
+    // this._checkItemsOverlayIssue(item)
+    // this.showDropHightlight = false
+    // this._cdr.detectChanges()
   }
 
   _onItemDragging(event: any, item: ITimelineItem): void {
