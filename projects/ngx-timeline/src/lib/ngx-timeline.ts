@@ -16,7 +16,7 @@ import { StrategyManager } from './helpers/strategy-manager'
 import { NgxTimelineService } from './services/ngx-timeline.service'
 import { ResizeEvent } from '@christophhu/ngx-resizeable'
 import { IIdObject } from './models/id-object'
-import { Overlap } from './models/overlap'
+import { IOverlappingItem } from './models/overlapping-item'
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator'
 import { DragEndEvent } from '@christophhu/ngx-drag-n-drop'
 
@@ -63,6 +63,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
   // show overlapping items
   public showOverlappingItems: boolean = true
+  public overlappingItems: IOverlappingItem[] = []
 
   // overlay items
   public showOverlayItems: boolean = false
@@ -215,7 +216,15 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   }
 
   private _updateItemsPosition(): void {
-    this.itemsIterator.forEach((item) => this._updateItemPosition(item))
+    this.itemsIterator.forEach((item: ITimelineItem) => this._updateItemPosition(item))
+  }
+  private _updateOverlappingItemsPosition(): void {
+    this.findOverlappingItems(this.itemsIterator.items).forEach((overlap: IOverlappingItem) => this._updateOverlappingItemPosition(overlap))
+  }
+  private _updateOverlappingItemPosition(item: IOverlappingItem) {
+    item._width = this._calculateItemWidth(item)
+    item._top = this._calculateItemTopPosition(item)
+    item._left = this._calculateItemLeftPosition(item)
   }
   private _updateItemPosition(item: ITimelineItem): void {
     item._width = this._calculateItemWidth(item)
@@ -225,7 +234,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     item.updateView && item.updateView()
   }
 
-  private _calculateItemWidth(item: ITimelineItem): number {
+  private _calculateItemWidth(item: ITimelineItem | IOverlappingItem): number {
     if (!item.startDate || !item.endDate)
       return 0
 
@@ -240,7 +249,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
     return columnsOccupied * 48 -48
   }
-  private _calculateItemTopPosition(item: ITimelineItem): number {
+  private _calculateItemTopPosition(item: ITimelineItem | IOverlappingItem): number {
     const host: HTMLElement | null = this._elementRef?.nativeElement ?? null
     if (!host) return 0
 
@@ -255,7 +264,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
     return itemTop - laneElementTop
   }
-  private _calculateItemLeftPosition(item: ITimelineItem): number {
+  private _calculateItemLeftPosition(item: ITimelineItem | IOverlappingItem): number {
     if (!item.startDate || !item.endDate) return 0
     const columnsOffsetFromStart = this.viewModeAdaptor.getUniqueColumnsWithinRange(this.scale!.startDate, new Date(item.startDate)) - 1
     return columnsOffsetFromStart * this.zoom.columnWidth
@@ -267,7 +276,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   }
 
   private findOverlappingItems(items: ITimelineItem[]): any[] {
-    const overlaps: Overlap[] = []
+    const overlaps: IOverlappingItem[] = []
 
     const lanes = items.reduce<Record<string | number, ITimelineItem[]>>((acc, item) => {
       const laneKey = item.lane
@@ -291,16 +300,19 @@ export class NgxTimeline implements OnInit, AfterViewInit {
           const startB = new Date(itemB.startDate).getTime()
           const endB = new Date(itemB.endDate).getTime()
 
-          const overlapStart = Math.max(startA, startB)
-          const overlapEnd = Math.min(endA, endB)
+          const startDate = Math.max(startA, startB)
+          const endDate = Math.min(endA, endB)
 
-          if (overlapStart < overlapEnd) {
-            console.log(overlapStart, overlapEnd, itemA)
+          if (startDate < endDate) {
+            console.log(startDate, endDate, itemA)
             overlaps.push({
               lane,
-              overlapStart: new Date(overlapStart),
-              overlapEnd: new Date(overlapEnd),
+              startDate: new Date(startDate),
+              endDate: new Date(endDate),
               items: [itemA.id.toString(), itemB.id.toString()],
+              _top: this._calculateItemTopPosition(itemA),
+              _left: this._calculateItemLeftPosition(Object.assign({ startDate, endDate })),
+              _width: this._calculateItemWidth(Object.assign({ startDate, endDate }))
             })
           }
         }
@@ -308,65 +320,6 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     }
 
     return overlaps
-  }
-  private _checkItemsOverlayIssue(item: ITimelineItem): void {
-    console.log('Iterator', this.itemsIterator)
-    this.itemsIterator.forEach((it: ITimelineItem) => {
-      
-      if (it.id === item.id) return
-      if (it.lane.toString() !== item.lane.toString()) return
-
-      this.overlayIssueTop = item._top ? item._top : 0
-      switch (true) {
-        // 1. A starts after B starts and A ends before B ends (A inside B)
-        case (item.startDate >= it.startDate) && (item.endDate <= it.endDate):
-          console.log('A starts after B starts and A ends before B ends (A inside B)', item, it)
-          this.overlayIssueLeft = this._calculateItemLeftPosition(item)
-          this.overlayIssueWidth = this._calculateItemOverlayWidth(item.startDate, item.endDate)
-          this.showOverlayItems = true
-          break
-        // 2. B starts after A starts and B ends before A ends (B inside A)
-        case (it.startDate >= item.startDate) && (it.endDate <= item.endDate):
-          console.log('B starts after A starts and B ends before A ends (B inside A)', it, item)
-          this.overlayIssueLeft = this._calculateItemLeftPosition(it)
-          this.overlayIssueWidth = this._calculateItemOverlayWidth(it.startDate, it.endDate)
-          this.showOverlayItems = true
-          break
-        // 3. A starts before B starts and A ends after B starts (A overlaps start of B)
-        case (item.startDate < it.startDate) && (item.endDate > it.startDate):
-          console.log('A starts before B starts and A ends after B starts (A overlaps start of B)', item, it)
-          this.overlayIssueLeft = this._calculateItemLeftPosition(it)
-          this.overlayIssueWidth = this._calculateItemOverlayWidth(it.startDate, item.endDate)
-          this.showOverlayItems = true
-          break
-        // 4. B starts before AB starts and B ends after A starts (B overlaps start of A)
-        case (it.startDate < item.startDate) && (it.endDate > item.startDate):
-          console.log('B starts before A starts and B ends after A starts (B overlaps start of A)', it, item)
-          this.overlayIssueLeft = this._calculateItemLeftPosition(item)
-          this.overlayIssueWidth = this._calculateItemOverlayWidth(item.startDate, it.endDate)
-          this.showOverlayItems = true
-          break
-        // 5. A ends after B ends and A starts before B ends (A overlaps end of B)
-        case (item.endDate > it.endDate) && (item.startDate < it.endDate):
-          console.log('A ends after B ends and A starts before B ends (A overlaps end of B)', item, it)
-          this.overlayIssueLeft = this._calculateItemLeftPosition(item)
-          this.overlayIssueWidth = this._calculateItemOverlayWidth(item.startDate, it.endDate)
-          this.showOverlayItems = true
-          break
-        // 6. B ends after A ends and B starts before A ends (B overlaps end of A)
-        case (it.endDate > item.endDate) && (it.startDate < item.endDate):
-          console.log('B ends after A ends and B starts before A ends (B overlaps end of A))', it, item)
-          this.overlayIssueLeft = this._calculateItemLeftPosition(it)
-          this.overlayIssueWidth = this._calculateItemOverlayWidth(it.startDate, item.endDate)
-          this.showOverlayItems = true
-          break
-        default:
-          console.log('no overlapping elemets')
-          return
-      }
-      
-      this._cdr.detectChanges()
-    })
   }
 
   _onItemMoved(event: DragEndEvent, movedItem: ITimelineItem): void {
@@ -404,9 +357,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
     }
 
     this.redraw()
-    console.log('items: ', this.itemsIterator.items)
-    console.log('overlap: ', this.findOverlappingItems(this.itemsIterator.items))
-    // this._checkItemsOverlayIssue(movedItem)
+    this.overlappingItems = this.findOverlappingItems(this.itemsIterator.items)
     this.showDropHightlight = false
     
     this._cdr.detectChanges()

@@ -21,6 +21,13 @@
     @if (showDateMarker) {
       <timeline-date-marker class="absolute top-0 h-full" [scale]="scale" [leftPosition]="dateMarkerLeftPosition"></timeline-date-marker>
     }
+    @if (showOverlappingItems) {
+      @for (item of overlappingItems; track $index) {
+        <div class="absolute top-16 left-0 right-0 bottom-0 mt-1 pointer-events-none z-40">
+          <div class="overlayissue" [style.top.px]="item._top" [style.left.px]="item._left" [style.height.px]="48" [style.width.px]="item._width"></div>
+        </div>
+      }
+    }
 
     <!-- items -->
     @if ((lanes$ | async); as lanes) {

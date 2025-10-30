@@ -1,7 +1,7 @@
-export interface Overlap {
+export interface IOverlappingItem {
     lane: string | number
-    overlapStart: Date
-    overlapEnd: Date
+    startDate: Date
+    endDate: Date
     items: string[]
     _top?: number
     _left?: number
