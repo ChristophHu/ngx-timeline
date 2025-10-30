@@ -16,6 +16,7 @@ import { StrategyManager } from './helpers/strategy-manager'
 import { NgxTimelineService } from './services/ngx-timeline.service'
 import { ResizeEvent } from '@christophhu/ngx-resizeable'
 import { IIdObject } from './models/id-object'
+import { Overlap } from './models/overlap'
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator'
 import { DragEndEvent } from '@christophhu/ngx-drag-n-drop'
 
@@ -23,13 +24,6 @@ interface ITimelineModuleConfig {
   strategyManager?: Provider
   dayScaleGenerator?: Provider
   dayScaleConfig?: Partial<IScaleGeneratorConfig>
-}
-
-interface Overlap {
-  lane: string | number;
-  overlapStart: Date;
-  overlapEnd: Date;
-  items: string[];
 }
 
 @Component({
@@ -69,7 +63,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
   // show overlapping items
   public showOverlappingItems: boolean = true
-  
+
   // overlay items
   public showOverlayItems: boolean = false
   overlayIssueTop: number = 0
@@ -273,54 +267,47 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   }
 
   private findOverlappingItems(items: ITimelineItem[]): any[] {
-    const overlaps: Overlap[] = [];
+    const overlaps: Overlap[] = []
 
-    // 1️⃣ Items nach Lane gruppieren
     const lanes = items.reduce<Record<string | number, ITimelineItem[]>>((acc, item) => {
-      const laneKey = item.lane;
-      acc[laneKey] = acc[laneKey] || [];
-      acc[laneKey].push(item);
-      return acc;
-    }, {});
+      const laneKey = item.lane
+      acc[laneKey] = acc[laneKey] || []
+      acc[laneKey].push(item)
+      return acc
+    }, {})
 
-    // 2️⃣ Jede Lane separat prüfen
     for (const [lane, laneItems] of Object.entries(lanes)) {
-      // nach Startdatum sortieren (erleichtert Vergleich)
       const sorted = laneItems.sort(
         (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-      );
+      )
 
-
-      // 3️⃣ Alle Kombinationen prüfen
       for (let i = 0; i < sorted.length; i++) {
         for (let j = i + 1; j < sorted.length; j++) {
-          const itemA = sorted[i];
-          const itemB = sorted[j];
+          const itemA = sorted[i]
+          const itemB = sorted[j]
 
-          const startA = new Date(itemA.startDate).getTime();
-          const endA = new Date(itemA.endDate).getTime();
-          const startB = new Date(itemB.startDate).getTime();
-          const endB = new Date(itemB.endDate).getTime();
-          console.log(startA)
+          const startA = new Date(itemA.startDate).getTime()
+          const endA = new Date(itemA.endDate).getTime()
+          const startB = new Date(itemB.startDate).getTime()
+          const endB = new Date(itemB.endDate).getTime()
 
-          // prüfen, ob sich Zeiträume überschneiden
-          const overlapStart = Math.max(startA, startB);
-          const overlapEnd = Math.min(endA, endB);
+          const overlapStart = Math.max(startA, startB)
+          const overlapEnd = Math.min(endA, endB)
 
           if (overlapStart < overlapEnd) {
-            console.log(overlapStart, overlapEnd)
+            console.log(overlapStart, overlapEnd, itemA)
             overlaps.push({
               lane,
               overlapStart: new Date(overlapStart),
               overlapEnd: new Date(overlapEnd),
               items: [itemA.id.toString(), itemB.id.toString()],
-            });
+            })
           }
         }
       }
     }
 
-    return overlaps;
+    return overlaps
   }
   private _checkItemsOverlayIssue(item: ITimelineItem): void {
     console.log('Iterator', this.itemsIterator)
