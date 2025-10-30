@@ -6,9 +6,9 @@ export interface Lane {
     name: string
     description: string
     canDrag: boolean
+    icon?: string
     isExpanded?: boolean
-    sub?: Lane[]
     items?: Item[]
-    errorItems?: ErrorItem[]
+    sub?: Lane[]
     updateView?(): void
 }

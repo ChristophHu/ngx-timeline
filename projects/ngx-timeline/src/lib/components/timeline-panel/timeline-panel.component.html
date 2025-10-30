@@ -1,30 +1,36 @@
-<div class="sticky flex flex-col shrink-0 h-full left-0 bg-primary border-r border-static_gray resize-handle-right z-40" Resizeable (resizing)='handleResize($event)' [style.width.px]='width'>
+<div class="sticky flex flex-col shrink-0 h-full left-0 bg-primary border-r border-static_gray resize-handle-right z-40" Resizeable (resizing)="handleResize($event)" [style.width.px]="width">
     <div class="absolute top-0 right-0 h-full w-2 cursor-col-resize overflow-hidden z-40" Resize [resizeEdges]="{right: resizable}"></div>
     <div class="sticky flex shrink-0 h-16 w-full top-0 left-0 justify-center items-center border-b border-static_gray">Label</div>
     @for (lane of (lanes$ | async); track lane.id) {
-        <ng-container [ngTemplateOutlet]='lanesIterationTemplate' [ngTemplateOutletContext]='{ lane: lane, depth: 0 }'></ng-container>
+        <ng-container [ngTemplateOutlet]="lanesIterationTemplate" [ngTemplateOutletContext]="{ lane: lane, depth: 0 }"></ng-container>
     }
-    <ng-template #lanesIterationTemplate let-lane='lane' let-depth='depth'>
+    <ng-template #lanesIterationTemplate let-lane="lane" let-depth="depth">
         @switch (true) {
-            @case (width <= 200) {
-                <div class='inline-flex flex-col h-12 w-full px-3 items-center'>
+            @case (width <= 260) {
+                <div class="flex h-12 w-full px-3 items-center">
                     <span class="sr-only" title="id">{{ lane.id }}</span>
-                    <span class='item-name' title="name">{{ lane.name }}</span>
+                    <span class="" title="name">{{ lane.name }}</span>
                 </div>
             }
-            @case (width <= 300) {
-                <div class='inline-flex flex-col h-12 w-full px-3 items-center'>
+            @case (width <= 360) {
+                <div class="flex h-12 w-full px-3 items-center">
                     <span class="sr-only" title="id">{{ lane.id }}</span>
-                    <span class='item-name' title="name">{{ lane.name }}</span>
-                    <span class='item-name' title="icon">{{ lane.icon }}</span>
+                    <div class="h-10 w-10 mr-2">
+                        <img class="rounded-full" [src]="lane.icon" title="icon" />
+                    </div>
+                    <span class="" title="name">{{ lane.name }}</span>
                 </div> 
             }
-            @case (width > 300) {
-            <div class='flex flex-col h-12 w-full px-3 items-center'>
+            @case (width > 360) {
+            <div class="flex h-12 w-full px-3 items-center">
                 <span class="sr-only" title="id">{{ lane.id }}</span>
-                <span class='item-name' title="name">{{ lane.name }}</span>
-                <span class='item-name' title="description">{{ lane.description }}</span>
-                <span class='item-name' title="icon">{{ lane.icon }}</span>
+                <div class="h-10 w-12 mr-2">
+                    <img class="rounded-full" [src]="lane.icon" title="icon" />
+                </div>
+                <div class="flex flex-col w-full">
+                    <span class="" title="name">{{ lane.name }}</span>
+                    <span class="text-xs text-label" title="description">{{ lane.description }}</span>
+                </div>
             </div>
             }
         }        

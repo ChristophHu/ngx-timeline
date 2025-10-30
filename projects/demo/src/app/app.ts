@@ -19,6 +19,7 @@ export class App {
       id: '1',
       name: 'Sub 1',
       description: 'Description',
+      icon: "https://placehold.co/50x50",
       canDrag: false,
       isExpanded: false,
     },
@@ -26,6 +27,7 @@ export class App {
       id: '2',
       name: 'Sub 2',
       description: 'Description',
+      icon: "https://www.svgrepo.com/show/508699/landscape-placeholder.svg",
       canDrag: false,
       isExpanded: false
     },
@@ -33,6 +35,7 @@ export class App {
       id: '3',
       name: 'Sub 3',
       description: 'Description',
+      icon: "https://placehold.jp/50x50.png",
       canDrag: false,
       isExpanded: false
     },
@@ -40,6 +43,7 @@ export class App {
       id: '4',
       name: 'Sub 4',
       description: 'Description',
+      icon:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSERIXFhQYHzMhHxwcHz8tLyUzSkFOTUlBSEZSXHZkUldvWEZIZoxob3p9hIWET2ORm4+AmnaBhH//2wBDARYXFx8bHzwhITx/VEhUf39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f3//wAARCAAyADIDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAECAwQF/8QAJRAAAgIBAwQBBQAAAAAAAAAAAAECAzEEERIhQVFxYRQzUoGR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APeBeyPCxx8FAALOEoreUWvaIUXJ7RTb+AIBLTi9mmn8kAAbRobin5QAnVfefowNdRLldJ/oyA66Zq6t1TysEpLTVNvrNlNLXm2XRLBe1LUVc4ZXYDkbcm28sgErIHbG+lRS5YXhgp9Gvzf8AHISskADay/nBQjHivZFNrqk3tun2MgBeySnNyUeO/YoABdWzS2UmCgAAAAAAAAAAAD/2Q==",
       canDrag: false,
       isExpanded: false
     },
