@@ -5,13 +5,14 @@ import { CommonModule } from '@angular/common'
 import { Lane } from "../../models/lane"
 import { ITimelineItem } from "../../models/item"
 
-import { ResizeEvent, ResizeHandleDirective } from "@christophhu/ngx-resizeable"
+import { ResizeableDirective, ResizeEvent, ResizeHandleDirective } from "@christophhu/ngx-resizeable"
 
 @Component({
   selector: 'timeline-panel',
   standalone: true,
   imports: [
     CommonModule,
+    ResizeableDirective,
     ResizeHandleDirective
   ],
   templateUrl: './timeline-panel.component.html',
