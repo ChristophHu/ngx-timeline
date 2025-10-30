@@ -1,4 +1,4 @@
-<div class="sticky flex flex-col shrink-0 h-full left-0 border-r border-static_gray resize-handle-right z-10" Resizeable (resizing)='handleResize($event)' [style.width.px]='width'>
+<div class="sticky flex flex-col shrink-0 h-full left-0 bg-primary border-r border-static_gray resize-handle-right z-40" Resizeable (resizing)='handleResize($event)' [style.width.px]='width'>
     <div class="absolute top-0 right-0 h-full w-2 cursor-col-resize overflow-hidden" Resize [resizeEdges]="{right: resizable}"></div>
     <div class="sticky flex shrink-0 h-16 w-full top-0 left-0 justify-center items-center border-b border-static_gray">Label</div>
     @for (lane of (lanes$ | async); track lane.id) {
