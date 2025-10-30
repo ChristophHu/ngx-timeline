@@ -47,7 +47,7 @@ export class TimelineScaleHeaderComponent implements OnChanges {
 
   private _generateGroups(): void {
     const groupedGroups = this._groupColumnGroups()
-    this.groups = Object.keys(groupedGroups).map(groupId => ({
+    this.groups = Object.keys(groupedGroups).map((groupId: string) => ({
       id: groupId,
       name: this.formatter?.formatGroup?.(groupedGroups[groupId][0], 'en') ?? '',
       width: groupedGroups[groupId].reduce((acc, curr) => acc + 48 * curr.coverageInPercents / 100, 0)
