@@ -242,13 +242,7 @@ export class NgxTimeline implements OnInit, AfterViewInit {
 
     return columnsOccupied * 48 -48
   }
-  private _calculateItemOverlayWidth(startDate: Date, endDate: Date): number {
-    if (!startDate || !endDate) return 0
 
-    const columnsOccupied = this.viewModeAdaptor.getUniqueColumnsWithinRange(new Date(startDate), new Date(endDate))
-
-    return columnsOccupied * 48 -48
-  }
   private _calculateItemTopPosition(item: ITimelineItem | IOverlappingItem): number {
     const host: HTMLElement | null = this._elementRef?.nativeElement ?? null
     if (!host) return 0
@@ -323,7 +317,6 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   }
 
   _onItemMoved(event: DragEndEvent, movedItem: ITimelineItem): void {
-    this.showOverlayItems = false
     this.showDropHightlight = false
 
     switch (true) {
