@@ -1,5 +1,3 @@
-import { IIdObject } from "./id-object"
-
 export interface Item {
   id: string
   lane: string
@@ -15,7 +13,11 @@ export interface Item {
   _width?: number
 }
 
-export interface ITimelineItem<Meta = any> extends IIdObject {
+export interface ITimelineItem<Meta = any> {
+  /**
+   * Id of item to identify Object.
+   */
+  id: number | string
   /**
    * Name of item. Needs only for view.
    */

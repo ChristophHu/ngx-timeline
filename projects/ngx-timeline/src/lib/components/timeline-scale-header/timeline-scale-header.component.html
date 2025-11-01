@@ -7,10 +7,9 @@
         </div>
         <div class="absolute flex h-auto top-8 bottom-0">
           @for (column of columns; track $index) {
-              <div class="relative flex h-full w-[48px] justify-center items-start" [ngClass]="{'bg-primary brightness-[130%]': column.date.getDay() == 6 || column.date.getDay() == 0 }">
-                <span>{{ formatter?.formatColumn(column, 48, "en") }}</span>
-              </div>
-
+            <div class="relative flex h-full w-[48px] justify-center items-start" [ngClass]="{'bg-primary brightness-[130%]': column.date.getDay() == 6 || column.date.getDay() == 0 }">
+              <span>{{ formatter?.formatColumn(column, 48, "en") }}</span>
+            </div>
             <div class="absolute top-6 h-2 w-12 border-r border-b border-borderline"></div>
           }
         </div>

@@ -15,7 +15,6 @@ import { ITimelineZoom, TimelineViewMode } from './models/zoom'
 import { StrategyManager } from './helpers/strategy-manager'
 import { NgxTimelineService } from './services/ngx-timeline.service'
 import { ResizeEvent } from '@christophhu/ngx-resizeable'
-import { IIdObject } from './models/id-object'
 import { IOverlappingItem } from './models/overlapping-item'
 import { DAY_SCALE_GENERATOR_CONFIG, DayScaleGenerator } from './helpers/scale-generator/day-scale-generator'
 import { DragEndEvent } from '@christophhu/ngx-drag-n-drop'
@@ -538,10 +537,6 @@ export class NgxTimeline implements OnInit, AfterViewInit {
   private _setStrategies(zoom: ITimelineZoom): void {
     this.viewModeAdaptor = this._strategyManager.getViewModeAdaptor(zoom.viewMode)
     this.scaleGenerator = this._strategyManager.getScaleGenerator(zoom.viewMode)
-  }
-
-  _trackById(index: number, item: IIdObject): number | string {
-    return item.id
   }
 }
 

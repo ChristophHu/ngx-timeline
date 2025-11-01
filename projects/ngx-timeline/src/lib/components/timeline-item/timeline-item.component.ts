@@ -80,7 +80,6 @@ export class TimelineItemComponent {
     this.dragging.emit({event, item: this._item})
   }
   onDragEnd(event: any): void {
-    console.log('NgxTimeline: drag end event', event)
     if (!this.isItemResizingStarted) {
       this.dragEnd.emit({event, item: this._item})
     }

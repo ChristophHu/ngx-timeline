@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { IScale, IScaleColumn, IScaleFormatter, IScaleGroup } from '../../models/scale'
 import { CommonModule } from '@angular/common'
-import { IIdObject } from '../../models/id-object'
 
 interface IGeneratedGroup {
   id: string
@@ -52,9 +51,5 @@ export class TimelineScaleHeaderComponent implements OnChanges {
       name: this.formatter?.formatGroup?.(groupedGroups[groupId][0], 'en') ?? '',
       width: groupedGroups[groupId].reduce((acc, curr) => acc + 48 * curr.coverageInPercents / 100, 0)
     }))
-  }
-
-  trackById(index: number, item: IIdObject): number | string {
-    return item.id
   }
 }
